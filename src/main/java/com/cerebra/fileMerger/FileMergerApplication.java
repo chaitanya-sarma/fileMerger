@@ -68,7 +68,7 @@ public class FileMergerApplication extends SingleFrameApplication {
         props.put("textAntiAliasing", "on");
         LunaLookAndFeel.setCurrentTheme(props);
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel("com.jtattoo.plaf.luna.LunaLookAndFeel");
             UIManager.put("TableHeader.font", new Font("Arial", Font.BOLD, 15));
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             sharedInformation.getLogger().debug("Issue when setting the looking and feel of application." + ex.toString() + "\t" + ex.getMessage());

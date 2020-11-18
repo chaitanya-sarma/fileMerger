@@ -1,0 +1,246 @@
+14:39 [AWT-EventQueue-0] TRACE AbstractApplicationContext.prepareRefresh 631 - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@6eee214e, started on Wed Nov 18 14:39:06 IST 2020
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE PathMatchingResourcePatternResolver.findAllClassPathResources 323 - Resolved classpath location [com/cerebra/fileMerger/] to resources [URL [file:/D:/cerebra/fileMerger/target/classes/com/cerebra/fileMerger/]]
+14:39 [AWT-EventQueue-0] TRACE PathMatchingResourcePatternResolver.doFindMatchingFileSystemResources 730 - Looking for matching resources in directory tree [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger]
+14:39 [AWT-EventQueue-0] TRACE PathMatchingResourcePatternResolver.doRetrieveMatchingFiles 792 - Searching directory [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger] for files matching pattern [D:/cerebra/fileMerger/target/classes/com/cerebra/fileMerger/**/*.class]
+14:39 [AWT-EventQueue-0] TRACE PathMatchingResourcePatternResolver.doRetrieveMatchingFiles 792 - Searching directory [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui] for files matching pattern [D:/cerebra/fileMerger/target/classes/com/cerebra/fileMerger/**/*.class]
+14:39 [AWT-EventQueue-0] TRACE PathMatchingResourcePatternResolver.doRetrieveMatchingFiles 792 - Searching directory [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection] for files matching pattern [D:/cerebra/fileMerger/target/classes/com/cerebra/fileMerger/**/*.class]
+14:39 [AWT-EventQueue-0] TRACE PathMatchingResourcePatternResolver.doRetrieveMatchingFiles 792 - Searching directory [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame] for files matching pattern [D:/cerebra/fileMerger/target/classes/com/cerebra/fileMerger/**/*.class]
+14:39 [AWT-EventQueue-0] TRACE PathMatchingResourcePatternResolver.doRetrieveMatchingFiles 792 - Searching directory [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util] for files matching pattern [D:/cerebra/fileMerger/target/classes/com/cerebra/fileMerger/**/*.class]
+14:39 [AWT-EventQueue-0] TRACE PathMatchingResourcePatternResolver.findPathMatchingResources 517 - Resolved location pattern [classpath*:com/cerebra/fileMerger/**/*.class] to resources [file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\FileMergerApplication$1.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\FileMergerApplication.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\SpringConfig.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\AboutDialog$1.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\AboutDialog.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\SubmitPanel.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\WaitLayerUI.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\FileSelectionPanel.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable$1.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable$2.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\CSVSelectionPanel.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\CreateMainFrameComponents.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\HomePanel.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$1.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$2.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$3.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$4.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\TSVSelectionPanel.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\TipsPanel.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\Constants.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\FileDetails.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser$1.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser$2.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\PathConstants.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\SharedInformation.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\Util.class], file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\UtilCSV.class]]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\FileMergerApplication$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\FileMergerApplication$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\FileMergerApplication.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\FileMergerApplication.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\SpringConfig.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\SpringConfig.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\AboutDialog$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\AboutDialog$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\AboutDialog.class]
+14:39 [AWT-EventQueue-0] DEBUG ClassPathScanningCandidateComponentProvider.scanCandidateComponents 435 - Identified candidate component class: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\AboutDialog.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\SubmitPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\SubmitPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\WaitLayerUI.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\WaitLayerUI.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\FileSelectionPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\FileSelectionPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable$2.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable$2.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\fileSelection\SelectionTable.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\CSVSelectionPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\CSVSelectionPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\CreateMainFrameComponents.class]
+14:39 [AWT-EventQueue-0] DEBUG ClassPathScanningCandidateComponentProvider.scanCandidateComponents 435 - Identified candidate component class: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\CreateMainFrameComponents.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\HomePanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\HomePanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$2.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$2.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$3.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$3.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$4.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane$4.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane.class]
+14:39 [AWT-EventQueue-0] DEBUG ClassPathScanningCandidateComponentProvider.scanCandidateComponents 435 - Identified candidate component class: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\MainPane.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\TSVSelectionPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\TSVSelectionPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\TipsPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\ui\mainFrame\TipsPanel.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\Constants.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\Constants.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\FileDetails.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\FileDetails.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser$1.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser$2.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser$2.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 447 - Ignored because not matching any filter: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\NativeFolderChooser.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\PathConstants.class]
+14:39 [AWT-EventQueue-0] DEBUG ClassPathScanningCandidateComponentProvider.scanCandidateComponents 435 - Identified candidate component class: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\PathConstants.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\SharedInformation.class]
+14:39 [AWT-EventQueue-0] DEBUG ClassPathScanningCandidateComponentProvider.scanCandidateComponents 435 - Identified candidate component class: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\SharedInformation.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\Util.class]
+14:39 [AWT-EventQueue-0] DEBUG ClassPathScanningCandidateComponentProvider.scanCandidateComponents 435 - Identified candidate component class: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\Util.class]
+14:39 [AWT-EventQueue-0] TRACE ClassPathScanningCandidateComponentProvider.scanCandidateComponents 425 - Scanning file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\UtilCSV.class]
+14:39 [AWT-EventQueue-0] DEBUG ClassPathScanningCandidateComponentProvider.scanCandidateComponents 435 - Identified candidate component class: file [D:\cerebra\fileMerger\target\classes\com\cerebra\fileMerger\util\UtilCSV.class]
+14:39 [AWT-EventQueue-0] TRACE ConfigurationClassEnhancer.enhance 111 - Successfully enhanced com.cerebra.fileMerger.SpringConfig; enhanced class name is: com.cerebra.fileMerger.SpringConfig$$EnhancerBySpringCGLIB$$ddeecb88
+14:39 [AWT-EventQueue-0] TRACE ConfigurationClassPostProcessor.enhanceConfigurationClasses 450 - Replacing bean definition 'springConfig' existing class 'com.cerebra.fileMerger.SpringConfig' with enhanced class 'com.cerebra.fileMerger.SpringConfig$$EnhancerBySpringCGLIB$$ddeecb88'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'org.springframework.context.event.internalEventListenerProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'org.springframework.context.event.internalEventListenerProcessor' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'org.springframework.context.event.internalEventListenerProcessor'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'org.springframework.context.event.internalEventListenerFactory'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'org.springframework.context.event.internalEventListenerFactory' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'org.springframework.context.event.internalEventListenerFactory'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractApplicationContext.initMessageSource 798 - No 'messageSource' bean, using [Empty MessageSource]
+14:39 [AWT-EventQueue-0] TRACE AbstractApplicationContext.initApplicationEventMulticaster 823 - No 'applicationEventMulticaster' bean, using [SimpleApplicationEventMulticaster]
+14:39 [AWT-EventQueue-0] TRACE DefaultListableBeanFactory.preInstantiateSingletons 913 - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@648fee4d: defining beans [org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,org.springframework.context.event.internalEventListenerProcessor,org.springframework.context.event.internalEventListenerFactory,springConfig,aboutDialog,createMainFrameComponents,mainPane,pathConstants,sharedInformation,util,utilCSV]; root of factory hierarchy
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'org.springframework.context.annotation.internalConfigurationAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'org.springframework.context.annotation.internalAutowiredAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'org.springframework.context.annotation.internalCommonAnnotationProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'org.springframework.context.event.internalEventListenerProcessor'
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'org.springframework.context.event.internalEventListenerFactory'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'springConfig'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'springConfig'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'springConfig' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'springConfig'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'aboutDialog'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'aboutDialog'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'aboutDialog' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'aboutDialog'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'createMainFrameComponents'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'createMainFrameComponents'
+14:39 [AWT-EventQueue-0] TRACE SpringFactoriesLoader.loadFactories 103 - Loaded [org.springframework.beans.BeanInfoFactory] names: [org.springframework.beans.ExtendedBeanInfoFactory]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 275 - Getting BeanInfo for class [com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 280 - Caching PropertyDescriptors for class [com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'aboutDialog' of type [com.cerebra.fileMerger.ui.AboutDialog]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'class' of type [java.lang.Class]
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.checkConfigMembers 114 - Registered injected element on class [com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents]: AutowiredMethodElement for private void com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents.setSharedInformation(com.cerebra.fileMerger.util.SharedInformation)
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.checkConfigMembers 114 - Registered injected element on class [com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents]: AutowiredMethodElement for private void com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents.setHomeTab(com.cerebra.fileMerger.ui.mainFrame.MainPane)
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.checkConfigMembers 114 - Registered injected element on class [com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents]: AutowiredMethodElement for public void com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents.setAboutDialog(com.cerebra.fileMerger.ui.AboutDialog)
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'createMainFrameComponents' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.inject 128 - Processing injected element of bean 'createMainFrameComponents': AutowiredMethodElement for private void com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents.setSharedInformation(com.cerebra.fileMerger.util.SharedInformation)
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'sharedInformation' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE AutowiredAnnotationBeanPostProcessor.registerDependentBeans 586 - Autowiring by type from bean name 'createMainFrameComponents' to bean named 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.inject 128 - Processing injected element of bean 'createMainFrameComponents': AutowiredMethodElement for private void com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents.setHomeTab(com.cerebra.fileMerger.ui.mainFrame.MainPane)
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'mainPane'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'mainPane'
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 275 - Getting BeanInfo for class [com.cerebra.fileMerger.ui.mainFrame.MainPane]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 280 - Caching PropertyDescriptors for class [com.cerebra.fileMerger.ui.mainFrame.MainPane]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'UIClassID' of type [java.lang.String]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'aboutDialog' of type [com.cerebra.fileMerger.ui.AboutDialog]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'accessibleContext' of type [javax.accessibility.AccessibleContext]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'actionMap' of type [javax.swing.ActionMap]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'alignmentX' of type [float]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'alignmentY' of type [float]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'ancestorListeners' of type [[Ljavax.swing.event.AncestorListener;]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'autoscrolls' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'background' of type [java.awt.Color]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'baselineResizeBehavior' of type [java.awt.Component$BaselineResizeBehavior]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'border' of type [javax.swing.border.Border]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'component'
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'componentCount' of type [int]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'componentCountInLayer'
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'componentPopupMenu' of type [javax.swing.JPopupMenu]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'components' of type [[Ljava.awt.Component;]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'componentsInLayer'
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'containerListeners' of type [[Ljava.awt.event.ContainerListener;]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'debugGraphicsOptions' of type [int]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'defaultLocale' of type [java.util.Locale]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'doubleBuffered' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'enabled' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'focusCycleRoot' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'focusTraversalKeys'
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'focusTraversalPolicy' of type [java.awt.FocusTraversalPolicy]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'focusTraversalPolicyProvider' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'focusTraversalPolicySet' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'focusable' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'font' of type [java.awt.Font]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'foreground' of type [java.awt.Color]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'graphics' of type [java.awt.Graphics]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'height' of type [int]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'inheritsPopupMenu' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'inputMap' of type [javax.swing.InputMap]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'inputVerifier' of type [javax.swing.InputVerifier]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'insets' of type [java.awt.Insets]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'layout' of type [java.awt.LayoutManager]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'managingFocus' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'maximumSize' of type [java.awt.Dimension]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'minimumSize' of type [java.awt.Dimension]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'name' of type [java.lang.String]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'nextFocusableComponent' of type [java.awt.Component]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'opaque' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'optimizedDrawingEnabled' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'paintingForPrint' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'paintingTile' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'preferredSize' of type [java.awt.Dimension]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'registeredKeyStrokes' of type [[Ljavax.swing.KeyStroke;]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'requestFocusEnabled' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'rootPane' of type [javax.swing.JRootPane]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'toolTipText' of type [java.lang.String]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'topLevelAncestor' of type [java.awt.Container]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'transferHandler' of type [javax.swing.TransferHandler]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'validateRoot' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'verifyInputWhenFocusTarget' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'vetoableChangeListeners' of type [[Ljava.beans.VetoableChangeListener;]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'visible' of type [boolean]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'visibleRect' of type [java.awt.Rectangle]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'width' of type [int]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'x' of type [int]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'y' of type [int]
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.checkConfigMembers 114 - Registered injected element on class [com.cerebra.fileMerger.ui.mainFrame.MainPane]: AutowiredMethodElement for public void com.cerebra.fileMerger.ui.mainFrame.MainPane.setAboutDialog(com.cerebra.fileMerger.ui.AboutDialog)
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'mainPane' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.inject 128 - Processing injected element of bean 'mainPane': AutowiredMethodElement for public void com.cerebra.fileMerger.ui.mainFrame.MainPane.setAboutDialog(com.cerebra.fileMerger.ui.AboutDialog)
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'aboutDialog'
+14:39 [AWT-EventQueue-0] TRACE AutowiredAnnotationBeanPostProcessor.registerDependentBeans 586 - Autowiring by type from bean name 'mainPane' to bean named 'aboutDialog'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'mainPane'
+14:39 [AWT-EventQueue-0] TRACE AutowiredAnnotationBeanPostProcessor.registerDependentBeans 586 - Autowiring by type from bean name 'createMainFrameComponents' to bean named 'mainPane'
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.inject 128 - Processing injected element of bean 'createMainFrameComponents': AutowiredMethodElement for public void com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents.setAboutDialog(com.cerebra.fileMerger.ui.AboutDialog)
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'aboutDialog'
+14:39 [AWT-EventQueue-0] TRACE AutowiredAnnotationBeanPostProcessor.registerDependentBeans 586 - Autowiring by type from bean name 'createMainFrameComponents' to bean named 'aboutDialog'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'createMainFrameComponents'
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'mainPane'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'pathConstants'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'pathConstants'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'pathConstants' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'pathConstants'
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'sharedInformation'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'util'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'util'
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 275 - Getting BeanInfo for class [com.cerebra.fileMerger.util.Util]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 280 - Caching PropertyDescriptors for class [com.cerebra.fileMerger.util.Util]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'class' of type [java.lang.Class]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'sharedInformation' of type [com.cerebra.fileMerger.util.SharedInformation]
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.checkConfigMembers 114 - Registered injected element on class [com.cerebra.fileMerger.util.Util]: AutowiredMethodElement for public void com.cerebra.fileMerger.util.Util.setSharedInformation(com.cerebra.fileMerger.util.SharedInformation)
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'util' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.inject 128 - Processing injected element of bean 'util': AutowiredMethodElement for public void com.cerebra.fileMerger.util.Util.setSharedInformation(com.cerebra.fileMerger.util.SharedInformation)
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE AutowiredAnnotationBeanPostProcessor.registerDependentBeans 586 - Autowiring by type from bean name 'util' to bean named 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'util'
+14:39 [AWT-EventQueue-0] DEBUG DefaultSingletonBeanRegistry.getSingleton 225 - Creating shared instance of singleton bean 'utilCSV'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 496 - Creating instance of bean 'utilCSV'
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 275 - Getting BeanInfo for class [com.cerebra.fileMerger.util.UtilCSV]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 280 - Caching PropertyDescriptors for class [com.cerebra.fileMerger.util.UtilCSV]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'class' of type [java.lang.Class]
+14:39 [AWT-EventQueue-0] TRACE CachedIntrospectionResults.<init> 295 - Found bean property 'sharedConstants' of type [com.cerebra.fileMerger.util.SharedInformation]
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.checkConfigMembers 114 - Registered injected element on class [com.cerebra.fileMerger.util.UtilCSV]: AutowiredMethodElement for public void com.cerebra.fileMerger.util.UtilCSV.setSharedConstants(com.cerebra.fileMerger.util.SharedInformation)
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.doCreateBean 599 - Eagerly caching bean 'utilCSV' to allow for resolving potential circular references
+14:39 [AWT-EventQueue-0] TRACE InjectionMetadata.inject 128 - Processing injected element of bean 'utilCSV': AutowiredMethodElement for public void com.cerebra.fileMerger.util.UtilCSV.setSharedConstants(com.cerebra.fileMerger.util.SharedInformation)
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE AutowiredAnnotationBeanPostProcessor.registerDependentBeans 586 - Autowiring by type from bean name 'utilCSV' to bean named 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE AbstractAutowireCapableBeanFactory.createBean 533 - Finished creating instance of bean 'utilCSV'
+14:39 [AWT-EventQueue-0] TRACE EventListenerMethodProcessor.processBean 186 - No @EventListener annotations found on bean class: com.cerebra.fileMerger.SpringConfig$$EnhancerBySpringCGLIB$$ddeecb88
+14:39 [AWT-EventQueue-0] TRACE EventListenerMethodProcessor.processBean 186 - No @EventListener annotations found on bean class: com.cerebra.fileMerger.ui.AboutDialog
+14:39 [AWT-EventQueue-0] TRACE EventListenerMethodProcessor.processBean 186 - No @EventListener annotations found on bean class: com.cerebra.fileMerger.ui.mainFrame.CreateMainFrameComponents
+14:39 [AWT-EventQueue-0] TRACE EventListenerMethodProcessor.processBean 186 - No @EventListener annotations found on bean class: com.cerebra.fileMerger.ui.mainFrame.MainPane
+14:39 [AWT-EventQueue-0] TRACE EventListenerMethodProcessor.processBean 186 - No @EventListener annotations found on bean class: com.cerebra.fileMerger.util.PathConstants
+14:39 [AWT-EventQueue-0] TRACE EventListenerMethodProcessor.processBean 186 - No @EventListener annotations found on bean class: com.cerebra.fileMerger.util.SharedInformation
+14:39 [AWT-EventQueue-0] TRACE EventListenerMethodProcessor.processBean 186 - No @EventListener annotations found on bean class: com.cerebra.fileMerger.util.Util
+14:39 [AWT-EventQueue-0] TRACE EventListenerMethodProcessor.processBean 186 - No @EventListener annotations found on bean class: com.cerebra.fileMerger.util.UtilCSV
+14:39 [AWT-EventQueue-0] TRACE AbstractApplicationContext.initLifecycleProcessor 849 - No 'lifecycleProcessor' bean, using [DefaultLifecycleProcessor]
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'lifecycleProcessor'
+14:39 [AWT-EventQueue-0] TRACE PropertySourcesPropertyResolver.getProperty 82 - Searching for key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemProperties'
+14:39 [AWT-EventQueue-0] TRACE PropertySourcesPropertyResolver.getProperty 82 - Searching for key 'spring.liveBeansView.mbeanDomain' in PropertySource 'systemEnvironment'
+14:39 [AWT-EventQueue-0] TRACE PropertySourcesPropertyResolver.getProperty 96 - Could not find key 'spring.liveBeansView.mbeanDomain' in any property source
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'sharedInformation'
+14:39 [AWT-EventQueue-0] TRACE AbstractBeanFactory.doGetBean 264 - Returning cached instance of singleton bean 'createMainFrameComponents'
