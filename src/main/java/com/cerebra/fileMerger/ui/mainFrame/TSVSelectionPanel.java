@@ -1,20 +1,25 @@
 package com.cerebra.fileMerger.ui.mainFrame;
 
 import com.cerebra.fileMerger.ui.fileSelection.FileSelectionPanel;
+import com.cerebra.fileMerger.util.Constants;
 import com.cerebra.fileMerger.util.NativeFolderChooser;
 import com.cerebra.fileMerger.util.SharedInformation;
 import com.cerebra.fileMerger.util.Util;
-import li.flor.nativejfilechooser.NativeJFileChooser;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
-import static com.cerebra.fileMerger.util.Constants.TSV;
+import static com.cerebra.fileMerger.util.Constants.*;
 
 public class TSVSelectionPanel extends JPanel {
 
@@ -44,58 +49,68 @@ public class TSVSelectionPanel extends JPanel {
         inputIconLbl.setToolTipText("Input");
         inputIconLbl.setIcon(new ImageIcon(TSVSelectionPanel.class.getResource("/input.png")));
         inputIconLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        inputIconLbl.setBounds(70, yPos, 40, 40);
+        inputIconLbl.setBounds(20, yPos, 40, 40);
         add(inputIconLbl);
         yPos += 40;
         JLabel inputLbl = new JLabel("Input");
         inputLbl.setHorizontalAlignment(SwingConstants.CENTER);
         inputLbl.setForeground(new Color(255, 255, 255));
-        inputLbl.setBounds(65, yPos, 50, 20);
+        inputLbl.setBounds(15, yPos, 50, 20);
         inputLbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
         add(inputLbl);
         yPos += 20;
 
         inputPath = new JTextField(20);
-        inputPath.setBounds(130, yPos - 25 - 15, 300, 25);
+        inputPath.setBounds(80, yPos - 25 - 15, 300, 25);
         inputPath.setEditable(false);
         add(inputPath);
 
-        inputBrowse = new JButton("Browse");
-        inputBrowse.addActionListener(this::inputBrowseAction);
-        inputBrowse.setBounds(450, yPos - 25 - 15, 80, 25);
+        inputBrowse = new JButton("File");
+        inputBrowse.addActionListener(this::inputFileBrowseAction);
+        inputBrowse.setBounds(400, yPos - 25 - 15, 80, 25);
+        add(inputBrowse);
+
+        inputBrowse = new JButton("Folder");
+        inputBrowse.addActionListener(this::inputFolderBrowseAction);
+        inputBrowse.setBounds(490, yPos - 25 - 15, 80, 25);
         add(inputBrowse);
 
         JLabel outputIconLbl = new JLabel("");
         outputIconLbl.setToolTipText("Output");
         outputIconLbl.setIcon(new ImageIcon(TSVSelectionPanel.class.getResource("/output.png")));
         outputIconLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        outputIconLbl.setBounds(70, yPos, 40, 40);
+        outputIconLbl.setBounds(20, yPos, 40, 40);
         yPos += 40;
         add(outputIconLbl);
 
         JLabel outputLbl = new JLabel("Output");
         outputLbl.setHorizontalAlignment(SwingConstants.CENTER);
         outputLbl.setForeground(new Color(255, 255, 255));
-        outputLbl.setBounds(64, yPos, 55, 20);
+        outputLbl.setBounds(14, yPos, 55, 20);
         outputLbl.setFont(new Font("Tahoma", Font.PLAIN, 18));
         add(outputLbl);
         yPos += 20;
 
         outputPath = new JTextField(20);
-        outputPath.setBounds(130, yPos - 25 - 15, 300, 25);
+        outputPath.setBounds(80, yPos - 25 - 15, 300, 25);
         outputPath.setEditable(false);
         add(outputPath);
 
         outputBrowse = new JButton("Browse");
         outputBrowse.addActionListener(this::outputBrowseAction);
-        outputBrowse.setBounds(450, yPos - 25 - 15, 80, 25);
+        outputBrowse.setBounds(400, yPos - 25 - 15, 80, 25);
         add(outputBrowse);
 
         mergeBtn = new JButton("Merge");
         mergeBtn.addActionListener(this::mergeAction);
         mergeBtn.setBounds((width - 80) / 2, yPos + 5, 80, 30);
         add(mergeBtn);
-        inputPath.setText(sharedInformation.getInputfolder());
+
+        StringJoiner joiner = new StringJoiner(",");
+        for (File f : sharedInformation.getInputFiles()) {
+            joiner.add(f.getName());
+        }
+        inputPath.setText(joiner.toString());
         outputPath.setText(sharedInformation.getOutputFolder());
         return this;
     }
@@ -106,18 +121,26 @@ public class TSVSelectionPanel extends JPanel {
         mergeBtn.setEnabled(b);
     }
 
-    private void inputBrowseAction(ActionEvent actionEvent) {
+    private void inputFileBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
-        NativeFolderChooser fileChooser = Util.getFolderChooser("Select input folder");
+        JFileChooser fileChooser = Util.getFileChooser("Select input files");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT (Tab delimited) (*.txt)", "txt");
+        fileChooser.setFileFilter(filter);
         if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
-            if (Files.isDirectory(Paths.get(fileChooser.getSelectedFile().toString()))) {
-                String directory = fileChooser.getSelectedFile().toString();
-                sharedInformation.setInputfolder(directory);
-                inputPath.setText(directory);
-            } else {
-                // folder not exits
-                Util.showMessageDialog("Please select a valid folder");
-            }
+            ArrayList<File> selectedFiles = new ArrayList<>(Arrays.asList(fileChooser.getSelectedFiles()));
+            Util.populateFiles(selectedFiles, inputPath, TXT);
+        }
+        buttonEnabled(true);
+    }
+
+    private void inputFolderBrowseAction(ActionEvent actionEvent) {
+        buttonEnabled(false);
+        JFileChooser fileChooser = Util.getFolderChooser("Select input folder");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT (Tab delimited) (*.txt)", "txt");
+        fileChooser.setFileFilter(filter);
+        if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
+            ArrayList<File> selectedFiles = new ArrayList<>(Arrays.asList(fileChooser.getSelectedFiles()));
+            Util.populateFiles(selectedFiles, inputPath, TXT);
         }
         buttonEnabled(true);
     }
@@ -126,7 +149,7 @@ public class TSVSelectionPanel extends JPanel {
     private void outputBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
         NativeFolderChooser fileChooser = Util.getFolderChooser("Select output folder");
-        if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
+        if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.DIRECTORIES_ONLY) {
             if (Files.isDirectory(Paths.get(fileChooser.getSelectedFile().toString()))) {
                 String directory = fileChooser.getSelectedFile().toString();
                 sharedInformation.setOutputFolder(directory);
@@ -140,7 +163,7 @@ public class TSVSelectionPanel extends JPanel {
     }
 
     private void mergeAction(ActionEvent actionEvent) {
-        if (sharedInformation.getInputfolder() == null) {
+        if (sharedInformation.getInputFiles() == null) {
             Util.showMessageDialog("Please select input folder");
             return;
         }
@@ -149,8 +172,7 @@ public class TSVSelectionPanel extends JPanel {
             return;
         }
         buttonEnabled(false);
-        List<String> files = Util.getFiles(TSV);
-        new FileSelectionPanel(sharedInformation, files, TSV);
+        new FileSelectionPanel(sharedInformation, TSV);
         buttonEnabled(true);
     }
 }

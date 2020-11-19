@@ -2,7 +2,6 @@ package com.cerebra.fileMerger.util;
 
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
-import li.flor.nativejfilechooser.NativeJFileChooser;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,8 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,26 +22,6 @@ public class Util {
     @Autowired
     public void setSharedInformation(SharedInformation sharedInformation) {
         Util.sharedInformation = sharedInformation;
-    }
-
-    public static List<String> getFiles(String type) {
-        if (type.equals(TSV)) type = "txt";
-        String inputfolder = sharedInformation.getInputfolder();
-        File directoryPath = new File(inputfolder);
-        //List of all files and directories
-        String[] contents = directoryPath.list();
-        List<String> directories = new ArrayList();
-        List<String> files = new ArrayList<>();
-        for (String content : contents) {
-            File file = new File(inputfolder + "/" + content);
-            if (file.isDirectory())
-                directories.add(content);
-            else {
-                if (getFileExtension(file.getName()).equalsIgnoreCase(type))
-                    files.add(inputfolder + "/" + content);
-            }
-        }
-        return files;
     }
 
     /**
@@ -128,13 +106,13 @@ public class Util {
     /**
      * Reads no of lines in the file.
      *
-     * @param filePath Path to the file.
+     * @param file Path to the file.
      * @return No of lines.
      */
-    public static int noOfLinesInFile(String filePath) {
+    public static int noOfLinesInFile(File file) {
         Logger logger = sharedInformation.getLogger();
         int linenumber = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(filePath)))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             while (reader.readLine() != null)
                 linenumber++;
         } catch (IOException ex) {
@@ -143,11 +121,11 @@ public class Util {
         return linenumber;
     }
 
-    public static List<String> getHeadersFromFile(String filePath, String type) {
+    public static List<String> getHeadersFromFile(File file, String type) {
         Logger logger = sharedInformation.getLogger();
         List<String> headers = new ArrayList<>();
         try {
-            CSVIterator csvIterator = getCSVReader(new File(filePath), type);
+            CSVIterator csvIterator = getCSVReader(file, type);
             while (csvIterator.hasNext()) {
                 String[] nextLine = csvIterator.next();
                 if (nextLine.length == 1 && nextLine[0].equals("")) break;
@@ -195,7 +173,26 @@ public class Util {
         NativeFolderChooser folderChooser = new NativeFolderChooser();
         sharedInformation.getLogger().info("Got file chooser");
         folderChooser.setDialogTitle(title);
+        folderChooser.setMultiSelectionEnabled(true);
         folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        return folderChooser;
+    }
+
+    public static NativeFolderChooser getFileChooser(String title) {
+        NativeFolderChooser folderChooser = new NativeFolderChooser();
+        sharedInformation.getLogger().info("Got file chooser");
+        folderChooser.setDialogTitle(title);
+        folderChooser.setMultiSelectionEnabled(true);
+        folderChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        return folderChooser;
+    }
+
+    public static JFileChooser getBasicFileChooser(String title) {
+        JFileChooser folderChooser = new JFileChooser();
+        sharedInformation.getLogger().info("Got file chooser");
+        folderChooser.setDialogTitle(title);
+        folderChooser.setMultiSelectionEnabled(true);
+        folderChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         return folderChooser;
     }
 
@@ -216,6 +213,33 @@ public class Util {
         int xCoord = (int) ((screenSize.getWidth() - x) / 2);
         int yCoord = (int) (screenSize.getHeight() - y) / 2;
         return new Point(xCoord, yCoord);
+    }
+
+    public static void populateFiles(ArrayList<File> selectedFiles, JTextField inputPath, String type) {
+        List<File> inputFiles = new ArrayList<>();
+        while (selectedFiles.size() > 0) {
+            File file = selectedFiles.remove(0);
+            if (file.exists()) {
+                if (file.isFile()) {
+                    if (Util.getFileExtension(file.getName()).equalsIgnoreCase(type))
+                        inputFiles.add(file);
+                }
+                if (file.isDirectory()) {
+                    File[] files = file.listFiles();
+                    if (Objects.requireNonNull(files).length > 0)
+                        selectedFiles.addAll(Arrays.asList(files));
+                }
+            } else {
+                // folder not exits
+                Util.showMessageDialog("Invalid file/folder " + file);
+            }
+        }
+        sharedInformation.setInputFiles(inputFiles);
+        StringJoiner joiner = new StringJoiner(",");
+        for (File f : sharedInformation.getInputFiles()) {
+            joiner.add(f.getName());
+        }
+        inputPath.setText(joiner.toString());
     }
 
 }

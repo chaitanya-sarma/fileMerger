@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * @author Chaitanya
@@ -115,7 +116,7 @@ public class MainPane extends JLayeredPane {
     }
 
     private void resetComponents(JTextField textField) {
-        sharedInformation.setInputfolder(null);
+        sharedInformation.setInputFiles(new ArrayList<>());
         sharedInformation.setOutputFolder(null);
         home.setForeground(new Color(240, 248, 255));
         csv.setForeground(new Color(240, 248, 255));

@@ -30,7 +30,7 @@ public class FileSelectionPanel {
     String type;
     private final List<FileDetails> fileDetailsList;
 
-    public FileSelectionPanel(SharedInformation sharedInformation, List<String> files, String type) {
+    public FileSelectionPanel(SharedInformation sharedInformation, String type) {
         this.sharedInformation = sharedInformation;
         this.selectionTable = new SelectionTable();
         this.type = type;
@@ -44,7 +44,7 @@ public class FileSelectionPanel {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
 
-        mainPanel.add(createDirectoryPanel(), BorderLayout.NORTH);
+        //mainPanel.add(createDirectoryPanel(), BorderLayout.NORTH);
 
         JScrollPane scrollPane = new JScrollPane(selectionTable.table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         selectionTable.table.setFillsViewportHeight(true);
@@ -56,16 +56,16 @@ public class FileSelectionPanel {
         mainPanel.add(submitPanel, BorderLayout.SOUTH);
 
         dialogBox.add(mainPanel);
-        populateFileDetails(files);
+        populateFileDetails(sharedInformation.getInputFiles());
         populateTable();
         setVisible(true);
     }
 
-    private void populateFileDetails(List<String> fileList) {
-        for (String file : fileList) {
+    private void populateFileDetails(List<File> fileList) {
+        for (File file : fileList) {
             FileDetails fileDetails = new FileDetails();
-            fileDetails.setFileName(new File(file).getName());
-            fileDetails.setFilePath(file);
+            fileDetails.setFileName(file.getName());
+            fileDetails.setFilePath(file.getPath());
             fileDetails.setNoOfLines(Util.noOfLinesInFile(file));
             fileDetails.setHeaders(Util.getHeadersFromFile(file, type));
             fileDetailsList.add(fileDetails);

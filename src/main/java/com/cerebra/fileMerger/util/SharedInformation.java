@@ -7,15 +7,16 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
-import java.awt.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component("sharedInformation")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class SharedInformation {
     private JFrame mainFrame;
     private String OS;
-    String inputfolder;
-    //="C:\\Users\\csarma\\Downloads\\covid19-philadelphia-master";
+    List<File> inputFiles = new ArrayList<>();
     String outputFolder;
     //="C:\\Users\\csarma\\Downloads";
     static int XSize = 800, YSize = 450;
@@ -66,12 +67,13 @@ public class SharedInformation {
         this.logger = logger;
     }
 
-    public String getInputfolder() {
-        return inputfolder;
+    public List<File> getInputFiles() {
+        return inputFiles;
     }
 
-    public void setInputfolder(String inputfolder) {
-        this.inputfolder = inputfolder;
+    public void setInputFiles(List<File> inputFiles) {
+        this.inputFiles = new ArrayList<>();
+        this.inputFiles = inputFiles;
     }
 
     public String getOutputFolder() {

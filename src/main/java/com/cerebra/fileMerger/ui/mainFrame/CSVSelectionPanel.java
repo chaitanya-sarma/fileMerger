@@ -4,14 +4,16 @@ import com.cerebra.fileMerger.ui.fileSelection.FileSelectionPanel;
 import com.cerebra.fileMerger.util.NativeFolderChooser;
 import com.cerebra.fileMerger.util.SharedInformation;
 import com.cerebra.fileMerger.util.Util;
-import li.flor.nativejfilechooser.NativeJFileChooser;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.*;
 import java.util.List;
 
 import static com.cerebra.fileMerger.util.Constants.CSV;
@@ -41,7 +43,6 @@ public class CSVSelectionPanel extends JPanel {
 
 
         JLabel inputIconLbl = new JLabel("");
-        inputIconLbl.setToolTipText("Input");
         inputIconLbl.setIcon(new ImageIcon(CSVSelectionPanel.class.getResource("/input.png")));
         inputIconLbl.setHorizontalAlignment(SwingConstants.CENTER);
         inputIconLbl.setBounds(70, yPos, 40, 40);
@@ -95,7 +96,11 @@ public class CSVSelectionPanel extends JPanel {
         mergeBtn.addActionListener(this::mergeAction);
         mergeBtn.setBounds((width - 80) / 2, yPos + 5, 80, 30);
         add(mergeBtn);
-        inputPath.setText(sharedInformation.getInputfolder());
+        StringJoiner joiner = new StringJoiner(",");
+        for (File f : sharedInformation.getInputFiles()) {
+            joiner.add(f.getName());
+        }
+        inputPath.setText(joiner.toString());
         outputPath.setText(sharedInformation.getOutputFolder());
         return this;
     }
@@ -108,16 +113,12 @@ public class CSVSelectionPanel extends JPanel {
 
     private void inputBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
-        NativeFolderChooser fileChooser = Util.getFolderChooser("Select input folder");
+        JFileChooser fileChooser = Util.getBasicFileChooser("Select input files and folders");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV (Comma delimited) (*.csv)", "csv");
+        fileChooser.setFileFilter(filter);
         if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
-            if (Files.isDirectory(Paths.get(fileChooser.getSelectedFile().toString()))) {
-                String directory = fileChooser.getSelectedFile().toString();
-                sharedInformation.setInputfolder(directory);
-                inputPath.setText(directory);
-            } else {
-                // folder not exits
-                Util.showMessageDialog("Please select a valid folder");
-            }
+            ArrayList<File> selectedFiles = new ArrayList<>(Arrays.asList(fileChooser.getSelectedFiles()));
+            Util.populateFiles(selectedFiles, inputPath,CSV);
         }
         buttonEnabled(true);
     }
@@ -140,7 +141,7 @@ public class CSVSelectionPanel extends JPanel {
     }
 
     private void mergeAction(ActionEvent actionEvent) {
-        if (sharedInformation.getInputfolder() == null) {
+        if (sharedInformation.getInputFiles() == null) {
             Util.showMessageDialog("Please select input folder");
             return;
         }
@@ -149,8 +150,7 @@ public class CSVSelectionPanel extends JPanel {
             return;
         }
         buttonEnabled(false);
-        List<String> files = Util.getFiles(CSV);
-        new FileSelectionPanel(sharedInformation, files, CSV);
+        new FileSelectionPanel(sharedInformation, CSV);
         buttonEnabled(true);
     }
 }
