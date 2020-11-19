@@ -27,7 +27,7 @@ public class HomePanel extends JPanel {
         setLayout(null);
 
         yPos = 10;
-        JLabel fileMergerLbl = new JLabel("Home");
+        JLabel fileMergerLbl = new JLabel("File Merger");
         fileMergerLbl.setForeground(new Color(246, 129, 29));
         fileMergerLbl.setHorizontalAlignment(SwingConstants.CENTER);
         fileMergerLbl.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -43,6 +43,15 @@ public class HomePanel extends JPanel {
         add(text);
 
         yPos += 50;
+        JLabel img = new JLabel("");
+        Image image = new ImageIcon(HomePanel.class.getResource("/fileMerge.jpg")).getImage().getScaledInstance(400, 120, Image.SCALE_SMOOTH);
+        img.setIcon(new ImageIcon(image));
+        img.setBackground(Color.WHITE);
+        img.setHorizontalAlignment(SwingConstants.CENTER);
+        img.setBounds(100, yPos, 400, 120);
+        add(img);
+
+        yPos += 130;
         JLabel features = new JLabel("Features:");
         features.setForeground(Color.WHITE);
         features.setHorizontalAlignment(SwingConstants.CENTER);
