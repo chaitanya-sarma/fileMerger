@@ -118,7 +118,7 @@ public class CSVSelectionPanel extends JPanel {
         fileChooser.setFileFilter(filter);
         if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
             ArrayList<File> selectedFiles = new ArrayList<>(Arrays.asList(fileChooser.getSelectedFiles()));
-            Util.populateFiles(selectedFiles, inputPath,CSV);
+            Util.populateFiles(selectedFiles, inputPath, CSV);
         }
         buttonEnabled(true);
     }
@@ -127,7 +127,7 @@ public class CSVSelectionPanel extends JPanel {
     private void outputBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
         NativeFolderChooser fileChooser = Util.getFolderChooser("Select output folder");
-        if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
+        if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.DIRECTORIES_ONLY) {
             if (Files.isDirectory(Paths.get(fileChooser.getSelectedFile().toString()))) {
                 String directory = fileChooser.getSelectedFile().toString();
                 sharedInformation.setOutputFolder(directory);

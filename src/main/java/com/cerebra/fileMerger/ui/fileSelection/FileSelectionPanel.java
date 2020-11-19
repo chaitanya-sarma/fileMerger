@@ -23,8 +23,6 @@ import java.util.Vector;
 public class FileSelectionPanel {
     private final JDialog dialogBox;
     private final SharedInformation sharedInformation;
-    JRadioButton excludeDirectoriesButton, includeDirectories;
-    ButtonGroup directory;
     protected SelectionTable selectionTable;
     private final SubmitPanel submitPanel;
     String type;
@@ -73,17 +71,28 @@ public class FileSelectionPanel {
     }
 
     private void mergeFiles(ActionEvent actionEvent) {
-        int fileCount = 0, lineCount = 0;
+        int mergedFileCount = 0, failedFileCount = 0, lineCount = 0, count = 0;
+        String mergedFile = null;
         List<String> headers = new ArrayList<>();
         submitPanel.submit.setEnabled(false);
-        List<String> selectedFiles = new ArrayList<>();
+        List<FileDetails> selectedFiles = new ArrayList<>();
         DefaultTableModel model = selectionTable.defaultTableModel;
         int rowCount = model.getRowCount();
         Vector dataVector = model.getDataVector();
         for (int i = 0; i < rowCount; i++) {
-            List<Object> row = new ArrayList((Collection) dataVector.elementAt(i));
-            if ((boolean) row.get(0))
-                selectedFiles.add((String) row.get(3));
+            ArrayList row = new ArrayList((Collection) dataVector.elementAt(i));
+            if ((boolean) row.get(0)) {
+                FileDetails selectedFileDetails = new FileDetails();
+                selectedFileDetails.setFileName((String) row.get(1));
+                selectedFileDetails.setFilePath((String) row.get(3));
+                selectedFileDetails.setNoOfLines(Integer.parseInt((String) row.get(2)));
+                for (FileDetails fileDetails : fileDetailsList) {
+                    if (selectedFileDetails.getFilePath().equalsIgnoreCase(fileDetails.getFilePath())) {
+                        selectedFileDetails.setHeaders(fileDetails.getHeaders());
+                    }
+                }
+                selectedFiles.add(selectedFileDetails);
+            }
         }
         if (selectedFiles.size() == 0) {
             JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
@@ -96,116 +105,120 @@ public class FileSelectionPanel {
             d.add(lbl);
             d.setVisible(true);
         } else {
-            for (FileDetails fileDetails : fileDetailsList) {
-                if (selectedFiles.get(0).equalsIgnoreCase(fileDetails.getFilePath())) {
-                    headers = fileDetails.getHeaders();
-                }
-            }
-            for (String selectedFile : selectedFiles)
-                for (FileDetails fileDetails : fileDetailsList) {
-                    if (selectedFile.equalsIgnoreCase(fileDetails.getFilePath())) {
-                        fileCount++;
-                        lineCount += fileDetails.getNoOfLines() - 1;
-                    }
-                }
-            String mergedFile = null;
-            int count = 0;
             while (mergedFile == null) {
                 String outputFileName = sharedInformation.getOutputFolder() + "/merged-" + count++ + "." + type;
                 File file = new File(outputFileName);
                 if (!file.exists()) mergedFile = outputFileName;
             }
+            headers = selectedFiles.get(0).getHeaders();
             try {
                 Files.createFile(Paths.get(mergedFile));
                 Util.writeHeaders(headers, mergedFile, type);
-                for (String sourceFile : selectedFiles)
-                    Util.copyFile(sourceFile, mergedFile, type);
+                for (FileDetails sourceFile : selectedFiles)
+                    if (headers.equals(sourceFile.getHeaders())) {
+                        Util.copyFile(sourceFile.getFilePath(), mergedFile, type);
+                        lineCount += sourceFile.getNoOfLines() - 1;
+                        mergedFileCount++;
+                    } else {
+                        failedFileCount++;
+                    }
             } catch (Exception e) {
                 e.printStackTrace();
             }
             JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
-            createStatusDialog(fileCount, lineCount, new File(mergedFile).getName(), d);
+            createStatusDialog(mergedFileCount, failedFileCount, lineCount, new File(mergedFile).getName(), d);
             d.setVisible(true);
             setVisible(false);
         }
     }
 
-    private void createStatusDialog(int fileCount, int lineCount, String name, JDialog d) {
+    private void createStatusDialog(int mergedFileCount, int failedFileCount, int lineCount, String name, JDialog d) {
         d.setTitle("Dialog Box");
-        d.setSize(320, 200);
+        if (failedFileCount == 0)
+            d.setSize(320, 200);
+        else
+            d.setSize(340, 250);
         d.setLocation(Util.getLocation(100, sharedInformation.getYSize() * 2 / 3));
         JPanel panel = new JPanel();
         panel.setBorder(null);
-        // panel.setBackground(new Color(128, 128, 128));
         panel.setLayout(null);
 
         int yPos = 10;
-        JLabel statusLbl = new JLabel("Merging successful");
+        JLabel statusLbl;
+        if (failedFileCount == 0)
+            statusLbl = new JLabel("Merging successful");
+        else
+            statusLbl = new JLabel("Merging partially successful");
         statusLbl.setForeground(new Color(246, 129, 29));
         statusLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        statusLbl.setFont(new Font("Tahoma", Font.BOLD, 25));
-        statusLbl.setBounds(10, yPos, 300, 30);
+        statusLbl.setFont(new Font("Tahoma", Font.BOLD, 20));
+        statusLbl.setBounds(20, yPos, 300, 30);
         panel.add(statusLbl);
         yPos += 40;
 
+        Font font = new Font("Tahoma", Font.PLAIN, 16);
         JLabel fileLbl = new JLabel("No of files Merged: ");
         fileLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        fileLbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        fileLbl.setBounds(10, yPos, 200, 25);
+        fileLbl.setFont(font);
+        fileLbl.setBounds(18, yPos, 200, 20);
         panel.add(fileLbl);
 
-        JLabel fileMerged = new JLabel(String.valueOf(fileCount));
+        JLabel fileMerged = new JLabel(String.valueOf(mergedFileCount));
         fileMerged.setHorizontalAlignment(SwingConstants.CENTER);
-        fileMerged.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        fileMerged.setBounds(210, yPos, 100, 25);
+        fileMerged.setFont(font);
+        fileMerged.setBounds(200, yPos, 100, 20);
         panel.add(fileMerged);
-        yPos += 35;
+        yPos += 30;
 
         JLabel lineLbl = new JLabel("No of lines Merged: ");
         lineLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        lineLbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lineLbl.setBounds(5, yPos, 200, 25);
+        lineLbl.setFont(font);
+        lineLbl.setBounds(15, yPos, 200, 20);
         panel.add(lineLbl);
 
         JLabel lineMerged = new JLabel(String.valueOf(lineCount));
         lineMerged.setHorizontalAlignment(SwingConstants.CENTER);
-        lineMerged.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lineMerged.setBounds(210, yPos, 100, 25);
+        lineMerged.setFont(font);
+        lineMerged.setBounds(200, yPos, 100, 20);
         panel.add(lineMerged);
-        yPos += 35;
+        yPos += 30;
+
+        if (failedFileCount > 0) {
+            JLabel failedFileLbl = new JLabel("No of failed files: ");
+            failedFileLbl.setHorizontalAlignment(SwingConstants.CENTER);
+            failedFileLbl.setFont(font);
+            failedFileLbl.setBounds(25, yPos, 200, 20);
+            panel.add(failedFileLbl);
+
+            JLabel failedFileMerged = new JLabel(String.valueOf(failedFileCount));
+            failedFileMerged.setHorizontalAlignment(SwingConstants.CENTER);
+            failedFileMerged.setFont(font);
+            failedFileMerged.setBounds(200, yPos, 100, 20);
+            panel.add(failedFileMerged);
+            yPos += 30;
+        }
 
         JLabel outputLbl = new JLabel("Output File: ");
         outputLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        outputLbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        outputLbl.setBounds(10, yPos, 150, 25);
+        outputLbl.setFont(font);
+        outputLbl.setBounds(20, yPos, 100, 20);
         panel.add(outputLbl);
 
         JLabel outputMerged = new JLabel(name);
         outputMerged.setHorizontalAlignment(SwingConstants.CENTER);
-        outputMerged.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        outputMerged.setBounds(160, yPos, 150, 25);
+        outputMerged.setFont(font);
+        outputMerged.setBounds(150, yPos, 150, 20);
         panel.add(outputMerged);
+        yPos += 30;
+
+        JButton submit = new JButton("Ok");
+        submit.setBounds(150, yPos, 50, 25);
+        submit.addActionListener(e -> {
+            dialogBox.setVisible(false);
+            d.setVisible(false);
+        });
+        panel.add(submit);
         d.add(panel);
-    }
-
-    private JPanel createDirectoryPanel() {
-        JPanel directoryPanel = new JPanel();
-        directoryPanel.setBounds(20, 20, 300, 50);
-        directoryPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        JLabel directoryLabel = new JLabel("Sub-directory");
-        directoryLabel.setBounds(10, 10, 100, 30);
-        directoryPanel.add(directoryLabel);
-
-        excludeDirectoriesButton = new JRadioButton("Exclude");
-        excludeDirectoriesButton.setBounds(120, 10, 100, 30);
-        directoryPanel.add(excludeDirectoriesButton);
-        includeDirectories = new JRadioButton("Include");
-        includeDirectories.setBounds(230, 10, 100, 30);
-        directoryPanel.add(includeDirectories);
-        directory = new ButtonGroup();
-        directory.add(excludeDirectoriesButton);
-        directory.add(includeDirectories);
-        return directoryPanel;
     }
 
     private void populateTable() {
