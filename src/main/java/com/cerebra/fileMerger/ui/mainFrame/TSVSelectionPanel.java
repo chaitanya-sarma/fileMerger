@@ -123,7 +123,7 @@ public class TSVSelectionPanel extends JPanel {
 
     private void inputFileBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
-        JFileChooser fileChooser = Util.getFileChooser("Select input files");
+        NativeFolderChooser fileChooser = Util.getFileChooser("Select input files");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT (Tab delimited) (*.txt)", "txt");
         fileChooser.setFileFilter(filter);
         if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
@@ -135,9 +135,7 @@ public class TSVSelectionPanel extends JPanel {
 
     private void inputFolderBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
-        JFileChooser fileChooser = Util.getFolderChooser("Select input folder");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT (Tab delimited) (*.txt)", "txt");
-        fileChooser.setFileFilter(filter);
+        NativeFolderChooser fileChooser = Util.getFolderChooser("Select input folder");
         if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
             ArrayList<File> selectedFiles = new ArrayList<>(Arrays.asList(fileChooser.getSelectedFiles()));
             Util.populateFiles(selectedFiles, inputPath, TXT);

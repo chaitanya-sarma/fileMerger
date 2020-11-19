@@ -157,62 +157,62 @@ public class FileSelectionPanel {
         yPos += 40;
 
         Font font = new Font("Tahoma", Font.PLAIN, 16);
-        JLabel fileLbl = new JLabel("No of files Merged: ");
-        fileLbl.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel fileLbl = new JLabel("Files Merged: ");
+        fileLbl.setHorizontalAlignment(SwingConstants.LEFT);
         fileLbl.setFont(font);
-        fileLbl.setBounds(18, yPos, 200, 20);
+        fileLbl.setBounds(20, yPos, 150, 20);
         panel.add(fileLbl);
 
         JLabel fileMerged = new JLabel(String.valueOf(mergedFileCount));
-        fileMerged.setHorizontalAlignment(SwingConstants.CENTER);
+        fileMerged.setHorizontalAlignment(SwingConstants.LEFT);
         fileMerged.setFont(font);
-        fileMerged.setBounds(200, yPos, 100, 20);
+        fileMerged.setBounds(175, yPos, 200, 20);
         panel.add(fileMerged);
         yPos += 30;
 
-        JLabel lineLbl = new JLabel("No of lines Merged: ");
-        lineLbl.setHorizontalAlignment(SwingConstants.CENTER);
+        JLabel lineLbl = new JLabel("Lines Merged: ");
+        lineLbl.setHorizontalAlignment(SwingConstants.LEFT);
         lineLbl.setFont(font);
-        lineLbl.setBounds(15, yPos, 200, 20);
+        lineLbl.setBounds(20, yPos, 150, 20);
         panel.add(lineLbl);
 
         JLabel lineMerged = new JLabel(String.valueOf(lineCount));
-        lineMerged.setHorizontalAlignment(SwingConstants.CENTER);
+        lineMerged.setHorizontalAlignment(SwingConstants.LEFT);
         lineMerged.setFont(font);
-        lineMerged.setBounds(200, yPos, 100, 20);
+        lineMerged.setBounds(175, yPos, 200, 20);
         panel.add(lineMerged);
         yPos += 30;
 
         if (failedFileCount > 0) {
-            JLabel failedFileLbl = new JLabel("No of failed files: ");
-            failedFileLbl.setHorizontalAlignment(SwingConstants.CENTER);
+            JLabel failedFileLbl = new JLabel("Files failed: ");
+            failedFileLbl.setHorizontalAlignment(SwingConstants.LEFT);
             failedFileLbl.setFont(font);
-            failedFileLbl.setBounds(25, yPos, 200, 20);
+            failedFileLbl.setBounds(20, yPos, 150, 20);
             panel.add(failedFileLbl);
 
             JLabel failedFileMerged = new JLabel(String.valueOf(failedFileCount));
-            failedFileMerged.setHorizontalAlignment(SwingConstants.CENTER);
+            failedFileMerged.setHorizontalAlignment(SwingConstants.LEFT);
             failedFileMerged.setFont(font);
-            failedFileMerged.setBounds(200, yPos, 100, 20);
+            failedFileMerged.setBounds(175, yPos, 200, 20);
             panel.add(failedFileMerged);
             yPos += 30;
         }
 
         JLabel outputLbl = new JLabel("Output File: ");
-        outputLbl.setHorizontalAlignment(SwingConstants.CENTER);
+        outputLbl.setHorizontalAlignment(SwingConstants.LEFT);
         outputLbl.setFont(font);
-        outputLbl.setBounds(20, yPos, 100, 20);
+        outputLbl.setBounds(20, yPos, 150, 20);
         panel.add(outputLbl);
 
         JLabel outputMerged = new JLabel(name);
-        outputMerged.setHorizontalAlignment(SwingConstants.CENTER);
+        outputMerged.setHorizontalAlignment(SwingConstants.LEFT);
         outputMerged.setFont(font);
-        outputMerged.setBounds(150, yPos, 150, 20);
+        outputMerged.setBounds(175, yPos, 200, 20);
         panel.add(outputMerged);
         yPos += 30;
 
         JButton submit = new JButton("Ok");
-        submit.setBounds(150, yPos, 50, 25);
+        submit.setBounds(135, yPos, 50, 25);
         submit.addActionListener(e -> {
             dialogBox.setVisible(false);
             d.setVisible(false);
