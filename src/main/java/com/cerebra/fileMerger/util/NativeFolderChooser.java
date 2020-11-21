@@ -100,7 +100,7 @@ public class NativeFolderChooser extends JFileChooser {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                parent.setEnabled(false);
+           //     parent.setEnabled(false);
                 if (isDirectorySelectionEnabled()) {
                     currentFile = directoryChooser.showDialog(null);
                 } else {
@@ -111,7 +111,7 @@ public class NativeFolderChooser extends JFileChooser {
                     }
                 }
                 latch.countDown();
-                parent.setEnabled(true);
+           //     parent.setEnabled(true);
             }
 
         });

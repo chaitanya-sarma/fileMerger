@@ -26,6 +26,7 @@ public class FileSelectionPanel {
     protected SelectionTable selectionTable;
     private final SubmitPanel submitPanel;
     String type;
+    private boolean continueMerge;
     private final List<FileDetails> fileDetailsList;
 
     public FileSelectionPanel(SharedInformation sharedInformation, String type) {
@@ -75,6 +76,7 @@ public class FileSelectionPanel {
         String mergedFile = null;
         List<String> headers = new ArrayList<>();
         submitPanel.submit.setEnabled(false);
+        continueMerge = true;
         List<FileDetails> selectedFiles = new ArrayList<>();
         DefaultTableModel model = selectionTable.defaultTableModel;
         int rowCount = model.getRowCount();
@@ -110,30 +112,46 @@ public class FileSelectionPanel {
                 File file = new File(outputFileName);
                 if (!file.exists()) mergedFile = outputFileName;
             }
-            headers = selectedFiles.get(0).getHeaders();
-            try {
-                Files.createFile(Paths.get(mergedFile));
-                Util.writeHeaders(headers, mergedFile, type);
-                for (FileDetails sourceFile : selectedFiles)
-                    if (headers.equals(sourceFile.getHeaders())) {
-                        Util.copyFile(sourceFile.getFilePath(), mergedFile, type);
-                        lineCount += sourceFile.getNoOfLines() - 1;
-                        mergedFileCount++;
-                    } else {
-                        failedFileCount++;
-                    }
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (differentFormatFiles(headers, selectedFiles)) {
+                continueMerge = false;
+                JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
+                createConfirmationDialog(d);
+                d.setVisible(true);
             }
-            JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
-            createStatusDialog(mergedFileCount, failedFileCount, lineCount, new File(mergedFile).getName(), d);
-            d.setVisible(true);
+            if (continueMerge) {
+                headers = selectedFiles.get(0).getHeaders();
+                try {
+                    Files.createFile(Paths.get(mergedFile));
+                    Util.writeHeaders(headers, mergedFile, type);
+                    for (FileDetails sourceFile : selectedFiles)
+                        if (headers.equals(sourceFile.getHeaders())) {
+                            Util.copyFile(sourceFile.getFilePath(), mergedFile, type);
+                            lineCount += sourceFile.getNoOfLines() - 1;
+                            mergedFileCount++;
+                        } else {
+                            failedFileCount++;
+                        }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
+                createStatusDialog(mergedFileCount, failedFileCount, lineCount, new File(mergedFile).getName(), d);
+                d.setVisible(true);
+            }
             setVisible(false);
         }
     }
 
+    private boolean differentFormatFiles(List<String> headers, List<FileDetails> selectedFiles) {
+        for (FileDetails sourceFile : selectedFiles) {
+            if (!headers.equals(sourceFile.getHeaders()))
+                return true;
+        }
+        return false;
+    }
+
     private void createStatusDialog(int mergedFileCount, int failedFileCount, int lineCount, String name, JDialog d) {
-        d.setTitle("Dialog Box");
+        d.setTitle("Status");
         if (failedFileCount == 0)
             d.setSize(320, 200);
         else
@@ -184,7 +202,7 @@ public class FileSelectionPanel {
         yPos += 30;
 
         if (failedFileCount > 0) {
-            JLabel failedFileLbl = new JLabel("Files failed: ");
+            JLabel failedFileLbl = new JLabel("Files Failed: ");
             failedFileLbl.setHorizontalAlignment(SwingConstants.LEFT);
             failedFileLbl.setFont(font);
             failedFileLbl.setBounds(20, yPos, 150, 20);
@@ -218,6 +236,32 @@ public class FileSelectionPanel {
             d.setVisible(false);
         });
         panel.add(submit);
+        d.add(panel);
+    }
+
+    private void createConfirmationDialog(Dialog d) {
+        d.setTitle("Confirmation Dialog");
+        d.setSize(320, 150);
+        d.setLocation(Util.getLocation(100, sharedInformation.getYSize() * 2 / 3));
+        JPanel panel = new JPanel();
+        panel.setBorder(null);
+        panel.setLayout(new BorderLayout());
+        JLabel statusLbl;
+        statusLbl = new JLabel("<html><div style='text-align: center;'>Selected files does not have similar format.<br>Merge only similar files.</div></html>");
+        statusLbl.setForeground(new Color(246, 129, 29));
+        statusLbl.setHorizontalAlignment(SwingConstants.CENTER);
+        statusLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        panel.add(statusLbl, BorderLayout.CENTER);
+
+        SubmitPanel submitPanel = new SubmitPanel();
+        submitPanel.submit.addActionListener(e -> {
+            this.continueMerge = true;
+            d.setVisible(false);
+        });
+        submitPanel.cancel.addActionListener(e -> {
+            d.setVisible(false);
+        });
+        panel.add(submitPanel, BorderLayout.SOUTH);
         d.add(panel);
     }
 
