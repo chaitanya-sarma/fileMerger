@@ -40,7 +40,7 @@ public class MainPane extends JLayeredPane {
         int yPos = 0;
         int xPos = 0;
         add(createTopBar(xPos, yPos, sharedInformation.getXSize(), 50));
-        yPos += 50;
+        yPos = 50;
         homePanel = new HomePanel().createHomePanel(sharedInformation, xPos + 200, yPos, 600, 400);
         csvPanel = new CSVSelectionPanel().createCSVSelectionPanel(sharedInformation, 200, yPos, 600, 200);
         tsvPanel = new TSVSelectionPanel().createTSVSelectionPanel(sharedInformation, 200, yPos, 600, 200);
@@ -125,8 +125,9 @@ public class MainPane extends JLayeredPane {
         remove(csvPanel);
         remove(tsvPanel);
         remove(tipsPanel);
+        csvPanel = new CSVSelectionPanel().createCSVSelectionPanel(sharedInformation, 200, 50, 600, 200);
+        tsvPanel = new TSVSelectionPanel().createTSVSelectionPanel(sharedInformation, 200, 50, 600, 200);
         textField.setForeground(new Color(0, 112, 170));
-
     }
 
     private void setProperties(JPanel panel, JTextField field, String name, int yPos) {

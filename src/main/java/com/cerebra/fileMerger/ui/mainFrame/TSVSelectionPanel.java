@@ -106,13 +106,13 @@ public class TSVSelectionPanel extends JPanel {
         mergeBtn.setBounds((width - 80) / 2, yPos + 5, 80, 30);
         add(mergeBtn);
 
-        StringJoiner joiner = new StringJoiner(",");
+      /*  StringJoiner joiner = new StringJoiner(",");
         for (File f : sharedInformation.getInputFiles()) {
             joiner.add(f.getName());
         }
         inputPath.setText(joiner.toString());
         outputPath.setText(sharedInformation.getOutputFolder());
-        return this;
+        */return this;
     }
 
     private void buttonEnabled(boolean b) {
