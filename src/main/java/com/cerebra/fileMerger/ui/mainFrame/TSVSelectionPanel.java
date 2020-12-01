@@ -1,7 +1,6 @@
 package com.cerebra.fileMerger.ui.mainFrame;
 
 import com.cerebra.fileMerger.ui.fileSelection.FileSelectionPanel;
-import com.cerebra.fileMerger.util.Constants;
 import com.cerebra.fileMerger.util.NativeFolderChooser;
 import com.cerebra.fileMerger.util.SharedInformation;
 import com.cerebra.fileMerger.util.Util;
@@ -16,8 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.StringJoiner;
 
 import static com.cerebra.fileMerger.util.Constants.*;
 

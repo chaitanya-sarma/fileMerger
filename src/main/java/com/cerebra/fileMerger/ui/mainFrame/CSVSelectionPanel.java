@@ -6,9 +6,7 @@ import com.cerebra.fileMerger.util.SharedInformation;
 import com.cerebra.fileMerger.util.Util;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.nio.file.Files;
@@ -16,101 +14,39 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import static com.cerebra.fileMerger.util.Constants.CSV;
+import static com.cerebra.fileMerger.util.Constants.TXT;
 
-public class CSVSelectionPanel extends JPanel {
+public class CSVSelectionPanel extends TemplateSelectionPanel {
 
-    public JTextField inputPath, outputPath;
-    JButton inputBrowse, outputBrowse, mergeBtn;
-    SharedInformation sharedInformation;
+    CSVSelectionPanel(SharedInformation sharedInformation, int xPos, int yPos) {
+        super(sharedInformation, xPos, yPos, "CSV File Merger");
+    }
 
-    JPanel createCSVSelectionPanel(SharedInformation sharedInformation, int xPos, int yPos, int width, int height) {
-        this.sharedInformation = sharedInformation;
-        setBorder(new LineBorder(Color.WHITE));
-        setOpaque(true);
-        setBackground(new Color(187, 186, 186, 226));
-        setBounds(xPos, yPos, width, height);
-        setLayout(null);
-
-        yPos = 10;
-        JLabel fileMergerLbl = new JLabel("CSV File Merger");
-        fileMergerLbl.setForeground(new Color(246, 129, 29));
-        fileMergerLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        fileMergerLbl.setFont(new Font("Tahoma", Font.PLAIN, 25));
-        fileMergerLbl.setBounds((width - 200) / 2, yPos, 200, 30);
-        add(fileMergerLbl);
-        yPos += 30;
-
-
-        JLabel inputIconLbl = new JLabel("");
-        inputIconLbl.setIcon(new ImageIcon(CSVSelectionPanel.class.getResource("/input.png")));
-        inputIconLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        inputIconLbl.setBounds(70, yPos, 40, 40);
-        add(inputIconLbl);
-        yPos += 40;
-        JLabel inputLbl = new JLabel("Input");
-        inputLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        inputLbl.setForeground(new Color(255, 255, 255));
-        inputLbl.setBounds(65, yPos, 50, 20);
-        inputLbl.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        add(inputLbl);
-        yPos += 20;
-
-        inputPath = new JTextField(20);
-        inputPath.setBounds(130, yPos - 25 - 15, 300, 25);
-        inputPath.setEditable(false);
-        add(inputPath);
-
-        inputBrowse = new JButton("Browse");
-        inputBrowse.addActionListener(this::inputBrowseAction);
-        inputBrowse.setBounds(450, yPos - 25 - 15, 80, 25);
-        add(inputBrowse);
-
-        JLabel outputIconLbl = new JLabel("");
-        outputIconLbl.setToolTipText("Output");
-        outputIconLbl.setIcon(new ImageIcon(CSVSelectionPanel.class.getResource("/output.png")));
-        outputIconLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        outputIconLbl.setBounds(70, yPos, 40, 40);
-        yPos += 40;
-        add(outputIconLbl);
-
-        JLabel outputLbl = new JLabel("Output");
-        outputLbl.setHorizontalAlignment(SwingConstants.CENTER);
-        outputLbl.setForeground(new Color(255, 255, 255));
-        outputLbl.setBounds(64, yPos, 55, 20);
-        outputLbl.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        add(outputLbl);
-        yPos += 20;
-
-        outputPath = new JTextField(20);
-        outputPath.setBounds(130, yPos - 25 - 15, 300, 25);
-        outputPath.setEditable(false);
-        add(outputPath);
-
-        outputBrowse = new JButton("Browse");
-        outputBrowse.addActionListener(this::outputBrowseAction);
-        outputBrowse.setBounds(450, yPos - 25 - 15, 80, 25);
-        add(outputBrowse);
-
-        mergeBtn = new JButton("Merge");
-        mergeBtn.addActionListener(this::mergeAction);
-        mergeBtn.setBounds((width - 80) / 2, yPos + 5, 80, 30);
-        add(mergeBtn);
-       /* StringJoiner joiner = new StringJoiner(",");
-        for (File f : sharedInformation.getInputFiles()) {
-            joiner.add(f.getName());
+    @Override
+    void inputFileBrowseAction(ActionEvent actionEvent) {
+        buttonEnabled(false);
+        NativeFolderChooser fileChooser = Util.getFileChooser("Select input files");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV (Comma delimited) (*.csv)", "csv");
+        fileChooser.setFileFilter(filter);
+        if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
+            ArrayList<File> selectedFiles = new ArrayList<>(Arrays.asList(fileChooser.getSelectedFiles()));
+            Util.populateFiles(selectedFiles, inputPath, TXT);
         }
-        inputPath.setText(joiner.toString());
-        outputPath.setText(sharedInformation.getOutputFolder());
-        */return this;
+        buttonEnabled(true);
     }
 
-    private void buttonEnabled(boolean b) {
-        inputBrowse.setEnabled(b);
-        outputBrowse.setEnabled(b);
-        mergeBtn.setEnabled(b);
+    @Override
+    void inputFolderBrowseAction(ActionEvent actionEvent) {
+        buttonEnabled(false);
+        NativeFolderChooser fileChooser = Util.getFolderChooser("Select input folder");
+        if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
+            ArrayList<File> selectedFiles = new ArrayList<>(Arrays.asList(fileChooser.getSelectedFiles()));
+            Util.populateFiles(selectedFiles, inputPath, TXT);
+        }
+        buttonEnabled(true);
     }
 
-    private void inputBrowseAction(ActionEvent actionEvent) {
+    void inputBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
         JFileChooser fileChooser = Util.getBasicFileChooser("Select input files and folders");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV (Comma delimited) (*.csv)", "csv");
@@ -122,8 +58,8 @@ public class CSVSelectionPanel extends JPanel {
         buttonEnabled(true);
     }
 
-
-    private void outputBrowseAction(ActionEvent actionEvent) {
+    @Override
+    void outputBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
         NativeFolderChooser fileChooser = Util.getFolderChooser("Select output folder");
         if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.DIRECTORIES_ONLY) {
@@ -139,7 +75,8 @@ public class CSVSelectionPanel extends JPanel {
         buttonEnabled(true);
     }
 
-    private void mergeAction(ActionEvent actionEvent) {
+    @Override
+    void mergeAction(ActionEvent actionEvent) {
         if (sharedInformation.getInputFiles() == null) {
             Util.showMessageDialog("Please select input folder");
             return;
