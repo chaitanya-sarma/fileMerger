@@ -43,15 +43,6 @@ public class HomePanel extends JPanel {
         add(text);
 
         yPos += 50;
-        JLabel img = new JLabel("");
-        Image image = new ImageIcon(HomePanel.class.getResource("/fileMerge.jpg")).getImage().getScaledInstance(400, 120, Image.SCALE_SMOOTH);
-        img.setIcon(new ImageIcon(image));
-        img.setBackground(Color.WHITE);
-        img.setHorizontalAlignment(SwingConstants.CENTER);
-        img.setBounds(100, yPos, 400, 120);
-        add(img);
-
-        yPos += 130;
         JLabel features = new JLabel("Features:");
         features.setForeground(Color.WHITE);
         features.setHorizontalAlignment(SwingConstants.CENTER);
@@ -68,7 +59,7 @@ public class HomePanel extends JPanel {
         add(csv);
 
         yPos += 25;
-        JLabel tsv = new JLabel("->Merge TSV files.");
+        JLabel tsv = new JLabel("->Merge Excel files.");
         tsv.setForeground(Color.WHITE);
         tsv.setHorizontalAlignment(SwingConstants.CENTER);
         tsv.setFont(new Font("Tahoma", Font.PLAIN, 15));

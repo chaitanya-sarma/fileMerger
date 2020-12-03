@@ -11,25 +11,26 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import static com.cerebra.fileMerger.util.Constants.CSV;
-import static com.cerebra.fileMerger.util.Constants.TXT;
+import static com.cerebra.fileMerger.util.Constants.*;
 
-public class CSVSelectionPanel extends TemplateSelectionPanel {
+public class ExcelSelectionPanel extends TemplateSelectionPanel {
 
-    CSVSelectionPanel(SharedInformation sharedInformation, int xPos, int yPos) {
-        super(sharedInformation, xPos, yPos, "CSV File Merger");
+    ExcelSelectionPanel(SharedInformation sharedInformation, int xPos, int yPos) {
+        super(sharedInformation, xPos, yPos, "Excel File Merger");
     }
 
+    @Override
     void inputBrowseAction(ActionEvent actionEvent) {
         buttonEnabled(false);
         JFileChooser fileChooser = Util.getBasicFileChooser("Select input files and folders");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV (Comma delimited) (*.csv)", "csv");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel files(*.xlsx)", "xlsx");
         fileChooser.setFileFilter(filter);
         if (fileChooser.showOpenDialog(sharedInformation.getMainFrame()) == JFileChooser.APPROVE_OPTION) {
             ArrayList<File> selectedFiles = new ArrayList<>(Arrays.asList(fileChooser.getSelectedFiles()));
-            Util.populateFiles(selectedFiles, inputPath, CSV);
+            Util.populateFiles(selectedFiles, inputPath, XLSX);
         }
         buttonEnabled(true);
     }
@@ -62,7 +63,7 @@ public class CSVSelectionPanel extends TemplateSelectionPanel {
             return;
         }
         buttonEnabled(false);
-        new FileSelectionPanel(sharedInformation, CSV);
+        new FileSelectionPanel(sharedInformation, XLSX);
         buttonEnabled(true);
     }
 }

@@ -1,6 +1,7 @@
 package com.cerebra.fileMerger.util;
 
-import com.opencsv.*;
+import com.cerebra.fileMerger.util.fileHandling.UtilCSV;
+import com.cerebra.fileMerger.util.fileHandling.UtilExcel;
 import com.opencsv.exceptions.CsvValidationException;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static com.cerebra.fileMerger.util.Constants.TSV;
+import static com.cerebra.fileMerger.util.Constants.*;
 
 @Component
 public class Util {
@@ -37,12 +38,13 @@ public class Util {
         return (dotInd > 0) ? fileName.substring(dotInd + 1) : fileName;
     }
 
-    public static String writeHeaders(List<String> headers, String destFile, String type) {
+    public static String writeHeaders(List<String> headers, String file, String type) {
         String returnStatus = Constants.SUCCESS;
         try {
-            CSVWriter writer = getCSVWriter(new File(destFile), type);
-            writer.writeNext(headers.toArray(new String[0]));
-            writer.close();
+            if (type.equalsIgnoreCase(CSV))
+                UtilCSV.writeHeaders(headers, file, type);
+            if (type.equalsIgnoreCase(XLSX))
+                UtilExcel.writeHeaders(headers, file);
         } catch (Exception e) {
             sharedInformation.getLogger().info(e.getStackTrace().toString());
             returnStatus = "Exception: Please refer to the log file. for details" + e.toString() + e.getMessage();
@@ -60,62 +62,35 @@ public class Util {
      */
     public static String copyFile(String source, String destination, String type) {
         String returnStatus = "";
-        int lineNo = 0;
         sharedInformation.getLogger().info("Copying file from " + source + " to " + destination);
-        File sourceFile = new File(source);
-        File destFile = new File(destination);
         try {
-            CSVIterator csvIterator = getCSVReader(sourceFile, type);
-            CSVWriter writer = getCSVWriter(destFile, type);
-            while (csvIterator.hasNext()) {
-                String[] nextLine = csvIterator.next();
-                if (lineNo++ != 0)
-                    writer.writeNext(nextLine);
-            }
-            writer.close();
+            if (type.equalsIgnoreCase(CSV))
+                UtilCSV.copyFile(source, destination, type);
+            if (type.equalsIgnoreCase(XLSX))
+                UtilExcel.copyFile(source, destination);
         } catch (Exception e) {
-            sharedInformation.getLogger().info(e.getStackTrace().toString());
+            sharedInformation.getLogger().info(Arrays.toString(e.getStackTrace()));
             returnStatus = "Exception: Please refer to the log file. for details" + e.toString() + e.getMessage();
         }
         return returnStatus;
     }
 
-    private static CSVWriter getCSVWriter(File destFile, String type) throws IOException {
-        if (type.equalsIgnoreCase(TSV)) {
-            return new CSVWriter(new FileWriter(destFile, true), '\t', CSVWriter.NO_QUOTE_CHARACTER,
-                    CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
-        } else {
-            return new CSVWriter(new FileWriter(destFile, true), CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
-                    CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END);
-        }
-
-
-    }
-
-    private static CSVIterator getCSVReader(File sourceFile, String type) throws IOException, CsvValidationException {
-        CSVParser parser;
-        if (type.equalsIgnoreCase(TSV)) {
-            parser = new CSVParserBuilder().withSeparator('\t').build();
-        } else {
-            parser = new CSVParserBuilder().build();
-        }
-        return new CSVIterator(new CSVReaderBuilder(new FileReader(sourceFile)).withCSVParser(parser).build());
-    }
-
-
     /**
      * Reads no of lines in the file.
      *
      * @param file Path to the file.
+     * @param type type of file (csv, tsv, excel)
      * @return No of lines.
      */
-    public static int noOfLinesInFile(File file) {
+    public static int noOfLinesInFile(File file, String type) {
         Logger logger = sharedInformation.getLogger();
-        int linenumber = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            while (reader.readLine() != null)
-                linenumber++;
-        } catch (IOException ex) {
+        int linenumber = -1;
+        try {
+            if (type.equalsIgnoreCase(CSV))
+                return UtilCSV.noOfLinesInFile(file);
+            if (type.equalsIgnoreCase(XLSX))
+                return UtilExcel.noOfLinesInFile(file);
+        } catch (Exception ex) {
             logger.warn(ex.getMessage());
         }
         return linenumber;
@@ -125,14 +100,12 @@ public class Util {
         Logger logger = sharedInformation.getLogger();
         List<String> headers = new ArrayList<>();
         try {
-            CSVIterator csvIterator = getCSVReader(file, type);
-            while (csvIterator.hasNext()) {
-                String[] nextLine = csvIterator.next();
-                if (nextLine.length == 1 && nextLine[0].equals("")) break;
-                headers = Arrays.asList(nextLine);
-                break;
-            }
-        } catch (IOException | CsvValidationException ex) {
+            if (type.equalsIgnoreCase(CSV))
+                return UtilCSV.getHeadersFromFile(file, type);
+            if (type.equalsIgnoreCase(XLSX))
+                return UtilExcel.getHeadersFromFile(file);
+        } catch (IOException |
+                CsvValidationException ex) {
             logger.warn(ex.getMessage());
         }
         return headers;
@@ -166,7 +139,6 @@ public class Util {
     /**
      * Returns a file chooser
      *
-     * @param
      * @return File chooser
      */
     public static NativeFolderChooser getFolderChooser(String title) {

@@ -100,9 +100,4 @@ public abstract class TemplateSelectionPanel extends JPanel {
     abstract void outputBrowseAction(ActionEvent actionEvent);
 
     abstract void inputBrowseAction(ActionEvent actionEvent);
-
-    abstract void inputFileBrowseAction(ActionEvent actionEvent);
-
-    abstract void inputFolderBrowseAction(ActionEvent actionEvent);
-
 }

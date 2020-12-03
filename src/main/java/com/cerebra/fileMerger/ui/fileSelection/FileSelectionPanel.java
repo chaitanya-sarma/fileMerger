@@ -43,8 +43,6 @@ public class FileSelectionPanel {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
 
-        //mainPanel.add(createDirectoryPanel(), BorderLayout.NORTH);
-
         JScrollPane scrollPane = new JScrollPane(selectionTable.table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         selectionTable.table.setFillsViewportHeight(true);
         mainPanel.add(scrollPane, BorderLayout.CENTER);
@@ -65,7 +63,7 @@ public class FileSelectionPanel {
             FileDetails fileDetails = new FileDetails();
             fileDetails.setFileName(file.getName());
             fileDetails.setFilePath(file.getPath());
-            fileDetails.setNoOfLines(Util.noOfLinesInFile(file));
+            fileDetails.setNoOfLines(Util.noOfLinesInFile(file, type));
             fileDetails.setHeaders(Util.getHeadersFromFile(file, type));
             fileDetailsList.add(fileDetails);
         }
@@ -112,6 +110,7 @@ public class FileSelectionPanel {
                 File file = new File(outputFileName);
                 if (!file.exists()) mergedFile = outputFileName;
             }
+            headers = selectedFiles.get(0).getHeaders();
             if (differentFormatFiles(headers, selectedFiles)) {
                 continueMerge = false;
                 JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
@@ -119,9 +118,7 @@ public class FileSelectionPanel {
                 d.setVisible(true);
             }
             if (continueMerge) {
-                headers = selectedFiles.get(0).getHeaders();
                 try {
-                    Files.createFile(Paths.get(mergedFile));
                     Util.writeHeaders(headers, mergedFile, type);
                     for (FileDetails sourceFile : selectedFiles)
                         if (headers.equals(sourceFile.getHeaders())) {

@@ -21,8 +21,8 @@ import java.util.ArrayList;
 @org.springframework.stereotype.Component
 public class MainPane extends JLayeredPane {
     SharedInformation sharedInformation;
-    JPanel homePanel, csvPanel, tsvPanel, tipsPanel;
-    JTextField home, csv, tsv, about;
+    JPanel homePanel, csvPanel, excelPanel, tipsPanel;
+    JTextField home, csv, excel, about;
     AboutDialog aboutDialog;
 
     @Autowired
@@ -43,7 +43,7 @@ public class MainPane extends JLayeredPane {
         yPos = 50;
         homePanel = new HomePanel().createHomePanel(sharedInformation, xPos + 200, yPos, 600, 400);
         csvPanel = new CSVSelectionPanel(sharedInformation, 200, yPos);
-        tsvPanel = new TSVSelectionPanel().createTSVSelectionPanel(sharedInformation, 200, yPos, 600, 200);
+        excelPanel = new ExcelSelectionPanel(sharedInformation, 200, yPos);
         tipsPanel = new TipsPanel().createTipsPanel(200, yPos + 200, 600, 190);
         add(createSidePanel(0, yPos - 10, 200, 500));
         add(homePanel);
@@ -80,17 +80,17 @@ public class MainPane extends JLayeredPane {
         });
         setProperties(panel, csv, "CSV", 50);
 
-        tsv = new JTextField();
-        tsv.addMouseListener(new MouseAdapter() {
+        excel = new JTextField();
+        excel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
-                resetComponents(tsv);
-                add(tsvPanel, JLayeredPane.DRAG_LAYER);
+                resetComponents(excel);
+                add(excelPanel, JLayeredPane.DRAG_LAYER);
                 add(tipsPanel, JLayeredPane.DEFAULT_LAYER);
                 repaint();
             }
         });
-        setProperties(panel, tsv, "TSV", 80);
+        setProperties(panel, excel, "Excel", 80);
 
         about = new JTextField();
         about.addMouseListener(new MouseAdapter() {
@@ -120,13 +120,13 @@ public class MainPane extends JLayeredPane {
         sharedInformation.setOutputFolder(null);
         home.setForeground(new Color(240, 248, 255));
         csv.setForeground(new Color(240, 248, 255));
-        tsv.setForeground(new Color(240, 248, 255));
+        excel.setForeground(new Color(240, 248, 255));
         remove(homePanel);
         remove(csvPanel);
-        remove(tsvPanel);
+        remove(excelPanel);
         remove(tipsPanel);
         csvPanel = new CSVSelectionPanel(sharedInformation, 200, 50);
-        tsvPanel = new TSVSelectionPanel().createTSVSelectionPanel(sharedInformation, 200, 50, 600, 200);
+        excelPanel = new ExcelSelectionPanel(sharedInformation, 200, 50);
         textField.setForeground(new Color(0, 112, 170));
     }
 
