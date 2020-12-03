@@ -1,4 +1,0 @@
-test_result,covid_outcome,count,etl_timestamp
-positive,died,1414,2020-06-08 17:20:02
-negative,negative,84698,2020-06-08 17:20:02
-positive,positive,22277,2020-06-08 17:20:02

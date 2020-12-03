@@ -1,0 +1,4 @@
+test_result,covid_outcome,count,etl_timestamp
+positive,died,1624,2020-07-08 17:20:03
+negative,negative,139670,2020-07-08 17:20:03
+positive,positive,25345,2020-07-08 17:20:03
