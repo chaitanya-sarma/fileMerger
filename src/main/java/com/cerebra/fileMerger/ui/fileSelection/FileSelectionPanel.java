@@ -159,9 +159,9 @@ public class FileSelectionPanel {
         int yPos = 10;
         JLabel statusLbl;
         if (failedFileCount == 0)
-            statusLbl = new JLabel("Merging successful");
+            statusLbl = new JLabel("Merge successful");
         else
-            statusLbl = new JLabel("Merging partially successful");
+            statusLbl = new JLabel("Merge partially successful");
         statusLbl.setForeground(new Color(246, 129, 29));
         statusLbl.setHorizontalAlignment(SwingConstants.CENTER);
         statusLbl.setFont(new Font("Tahoma", Font.BOLD, 20));
