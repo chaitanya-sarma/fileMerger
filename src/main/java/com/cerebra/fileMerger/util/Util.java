@@ -142,7 +142,10 @@ public class Util {
      * @return File chooser
      */
     public static NativeFolderChooser getFolderChooser(String title) {
-        NativeFolderChooser folderChooser = new NativeFolderChooser();
+        NativeFolderChooser folderChooser;
+        if (PathConstants.lastChosenFilePath != null)
+            folderChooser = new NativeFolderChooser(PathConstants.lastChosenFilePath);
+        else folderChooser = new NativeFolderChooser();
         sharedInformation.getLogger().info("Got file chooser");
         folderChooser.setDialogTitle(title);
         folderChooser.setMultiSelectionEnabled(true);
@@ -151,7 +154,10 @@ public class Util {
     }
 
     public static NativeFolderChooser getFileChooser(String title) {
-        NativeFolderChooser folderChooser = new NativeFolderChooser();
+        NativeFolderChooser folderChooser;
+        if (PathConstants.lastChosenFilePath != null)
+            folderChooser = new NativeFolderChooser(PathConstants.lastChosenFilePath);
+        else folderChooser = new NativeFolderChooser();
         sharedInformation.getLogger().info("Got file chooser");
         folderChooser.setDialogTitle(title);
         folderChooser.setMultiSelectionEnabled(true);
@@ -160,7 +166,10 @@ public class Util {
     }
 
     public static JFileChooser getBasicFileChooser(String title) {
-        JFileChooser folderChooser = new JFileChooser();
+        JFileChooser folderChooser;
+        if (PathConstants.lastChosenFilePath != null)
+            folderChooser = new JFileChooser(new File(PathConstants.lastChosenFilePath));
+        else folderChooser = new JFileChooser();
         sharedInformation.getLogger().info("Got file chooser");
         folderChooser.setDialogTitle(title);
         folderChooser.setMultiSelectionEnabled(true);
@@ -188,15 +197,18 @@ public class Util {
     }
 
     public static void populateFiles(ArrayList<File> selectedFiles, JTextField inputPath, String type) {
+        String path = null;
         List<File> inputFiles = new ArrayList<>();
         while (selectedFiles.size() > 0) {
             File file = selectedFiles.remove(0);
             if (file.exists()) {
+                if (path == null) path = file.getParent();
                 if (file.isFile()) {
                     if (Util.getFileExtension(file.getName()).equalsIgnoreCase(type))
                         inputFiles.add(file);
                 }
                 if (file.isDirectory()) {
+                    path = file.getParent();
                     File[] files = file.listFiles();
                     if (Objects.requireNonNull(files).length > 0)
                         selectedFiles.addAll(Arrays.asList(files));
@@ -206,6 +218,11 @@ public class Util {
                 Util.showMessageDialog("Invalid file/folder " + file);
             }
         }
+        if (inputFiles.size() == 0) {
+            Util.showMessageDialog("Selected path doesn't have files. Please reselect.");
+            return;
+        }
+        PathConstants.lastChosenFilePath = path;
         sharedInformation.setInputFiles(inputFiles);
         StringJoiner joiner = new StringJoiner(",");
         for (File f : sharedInformation.getInputFiles()) {
