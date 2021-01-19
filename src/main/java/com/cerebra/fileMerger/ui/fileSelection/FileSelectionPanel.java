@@ -23,6 +23,7 @@ public class FileSelectionPanel {
     private final SharedInformation sharedInformation;
     protected SelectionTable selectionTable;
     private final SubmitPanel submitPanel;
+    private final JButton up, down;
     String type;
     private boolean continueMerge;
     private final List<FileDetails> fileDetailsList;
@@ -41,9 +42,23 @@ public class FileSelectionPanel {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
 
+        JPanel filePanel = new JPanel();
+        filePanel.setLayout(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(selectionTable.table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         selectionTable.table.setFillsViewportHeight(true);
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        filePanel.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel movePanel = new JPanel();
+        movePanel.setLayout(new BoxLayout(movePanel, BoxLayout.Y_AXIS));
+        movePanel.setBorder(BorderFactory.createEmptyBorder(75, 5, 0, 5));
+        up = new JButton("  Up  ");
+        up.addActionListener(this::moveUp);
+        down = new JButton("Down");
+        down.addActionListener(this::moveDown);
+        movePanel.add(up);
+        movePanel.add(down);
+        filePanel.add(movePanel, BorderLayout.EAST);
+        mainPanel.add(filePanel, BorderLayout.CENTER);
 
         submitPanel = new SubmitPanel();
         submitPanel.submit.addActionListener(this::mergeFiles);
@@ -54,6 +69,27 @@ public class FileSelectionPanel {
         populateFileDetails(sharedInformation.getInputFiles());
         populateTable();
         setVisible(true);
+    }
+
+    private void moveDown(ActionEvent actionEvent) {
+        int selectedRow = selectionTable.table.getSelectedRow();
+        if (selectedRow == -1) return;
+        DefaultTableModel model = selectionTable.defaultTableModel;
+        int rowCount = model.getRowCount();
+        if (selectedRow < rowCount - 1) {
+            model.moveRow(selectedRow, selectedRow, selectedRow + 1);
+            selectionTable.table.setRowSelectionInterval(selectedRow + 1, selectedRow + 1);
+        }
+    }
+
+    private void moveUp(ActionEvent actionEvent) {
+        int selectedRow = selectionTable.table.getSelectedRow();
+        if (selectedRow == -1) return;
+        DefaultTableModel model = selectionTable.defaultTableModel;
+        if (selectedRow > 0) {
+            model.moveRow(selectedRow, selectedRow, selectedRow - 1);
+            selectionTable.table.setRowSelectionInterval(selectedRow - 1, selectedRow - 1);
+        }
     }
 
     private void populateFileDetails(List<File> fileList) {
