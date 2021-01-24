@@ -62,7 +62,6 @@ public class Util {
      */
     public static String copyFile(String source, String destination, String type) {
         String returnStatus = "";
-        sharedInformation.getLogger().info("Copying file from " + source + " to " + destination);
         try {
             if (type.equalsIgnoreCase(CSV))
                 UtilCSV.copyFile(source, destination, type);

@@ -9,7 +9,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,9 +25,9 @@ public class FileSelectionPanel {
     private final SharedInformation sharedInformation;
     protected SelectionTable selectionTable;
     private final SubmitPanel submitPanel;
-    private final JButton up, down;
     String type;
     private boolean continueMerge;
+    private List<String> mergedFiles, failedFiles;
     private final List<FileDetails> fileDetailsList;
 
     public FileSelectionPanel(SharedInformation sharedInformation, String type) {
@@ -51,20 +53,19 @@ public class FileSelectionPanel {
         JPanel movePanel = new JPanel();
         movePanel.setLayout(new BoxLayout(movePanel, BoxLayout.Y_AXIS));
         movePanel.setBorder(BorderFactory.createEmptyBorder(75, 5, 0, 5));
-        up = new JButton("  Up  ");
+        JButton up = new JButton("  Up  ");
         up.addActionListener(this::moveUp);
-        down = new JButton("Down");
+        JButton down = new JButton("Down");
         down.addActionListener(this::moveDown);
         movePanel.add(up);
         movePanel.add(down);
         filePanel.add(movePanel, BorderLayout.EAST);
         mainPanel.add(filePanel, BorderLayout.CENTER);
 
-        submitPanel = new SubmitPanel();
+        submitPanel = new SubmitPanel(true);
         submitPanel.submit.addActionListener(this::mergeFiles);
         submitPanel.cancel.addActionListener(e -> dialogBox.setVisible(false));
         mainPanel.add(submitPanel, BorderLayout.SOUTH);
-
         dialogBox.add(mainPanel);
         populateFileDetails(sharedInformation.getInputFiles());
         populateTable();
@@ -104,7 +105,7 @@ public class FileSelectionPanel {
     }
 
     private void mergeFiles(ActionEvent actionEvent) {
-        int mergedFileCount = 0, failedFileCount = 0, lineCount = 0, count = 0;
+        int lineCount = 0, count = 0;
         String mergedFile = null;
         List<String> headers = new ArrayList<>();
         submitPanel.submit.setEnabled(false);
@@ -152,21 +153,30 @@ public class FileSelectionPanel {
                 d.setVisible(true);
             }
             if (continueMerge) {
-                try {
+                mergedFiles = new ArrayList<>();
+                failedFiles = new ArrayList<>();
+                File mergedFileName = new File(sharedInformation.getOutputFolder() + "/merged-" + count + "success.txt");
+                File failedFileName = new File(sharedInformation.getOutputFolder() + "/merged-" + count + "failed.txt");
+                try (BufferedWriter mergedBr = new BufferedWriter(new FileWriter(mergedFileName));
+                     BufferedWriter failedBr = new BufferedWriter(new FileWriter(failedFileName))) {
                     Util.writeHeaders(headers, mergedFile, type);
                     for (FileDetails sourceFile : selectedFiles)
                         if (headers.equals(sourceFile.getHeaders())) {
                             Util.copyFile(sourceFile.getFilePath(), mergedFile, type);
                             lineCount += sourceFile.getNoOfLines() - 1;
-                            mergedFileCount++;
+                            mergedFiles.add(sourceFile.getFilePath());
+                            mergedBr.write(sourceFile.getFilePath());
+                            mergedBr.newLine();
                         } else {
-                            failedFileCount++;
+                            failedFiles.add(sourceFile.getFilePath());
+                            failedBr.write(sourceFile.getFilePath());
+                            failedBr.newLine();
                         }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
-                createStatusDialog(mergedFileCount, failedFileCount, lineCount, new File(mergedFile).getName(), d);
+                createStatusDialog(lineCount, new File(mergedFile).getName(), d);
                 d.setVisible(true);
             }
             setVisible(false);
@@ -181,9 +191,9 @@ public class FileSelectionPanel {
         return false;
     }
 
-    private void createStatusDialog(int mergedFileCount, int failedFileCount, int lineCount, String name, JDialog d) {
+    private void createStatusDialog(int lineCount, String name, JDialog d) {
         d.setTitle("Status");
-        if (failedFileCount == 0)
+        if (failedFiles.size() == 0)
             d.setSize(320, 200);
         else
             d.setSize(340, 250);
@@ -194,7 +204,7 @@ public class FileSelectionPanel {
 
         int yPos = 10;
         JLabel statusLbl;
-        if (failedFileCount == 0)
+        if (failedFiles.size() == 0)
             statusLbl = new JLabel("Merge successful");
         else
             statusLbl = new JLabel("Merge partially successful");
@@ -212,11 +222,19 @@ public class FileSelectionPanel {
         fileLbl.setBounds(20, yPos, 150, 20);
         panel.add(fileLbl);
 
-        JLabel fileMerged = new JLabel(String.valueOf(mergedFileCount));
+        JLabel fileMerged = new JLabel(String.valueOf(mergedFiles.size()));
         fileMerged.setHorizontalAlignment(SwingConstants.LEFT);
         fileMerged.setFont(font);
-        fileMerged.setBounds(175, yPos, 200, 20);
+        fileMerged.setBounds(175, yPos, 70, 20);
         panel.add(fileMerged);
+
+        JButton viewMerged = new JButton(" View ");
+        viewMerged.setHorizontalAlignment(SwingConstants.LEFT);
+        viewMerged.setFont(font);
+        viewMerged.setBounds(250, yPos, 60, 20);
+        viewMerged.addActionListener(this::displayMergedFiles);
+        panel.add(viewMerged);
+
         yPos += 30;
 
         JLabel lineLbl = new JLabel("Lines Merged: ");
@@ -228,22 +246,30 @@ public class FileSelectionPanel {
         JLabel lineMerged = new JLabel(String.valueOf(lineCount));
         lineMerged.setHorizontalAlignment(SwingConstants.LEFT);
         lineMerged.setFont(font);
-        lineMerged.setBounds(175, yPos, 200, 20);
+        lineMerged.setBounds(175, yPos, 70, 20);
         panel.add(lineMerged);
         yPos += 30;
 
-        if (failedFileCount > 0) {
+        if (failedFiles.size() > 0) {
             JLabel failedFileLbl = new JLabel("Files Failed: ");
             failedFileLbl.setHorizontalAlignment(SwingConstants.LEFT);
             failedFileLbl.setFont(font);
             failedFileLbl.setBounds(20, yPos, 150, 20);
             panel.add(failedFileLbl);
 
-            JLabel failedFileMerged = new JLabel(String.valueOf(failedFileCount));
+            JLabel failedFileMerged = new JLabel(String.valueOf(failedFiles.size()));
             failedFileMerged.setHorizontalAlignment(SwingConstants.LEFT);
             failedFileMerged.setFont(font);
-            failedFileMerged.setBounds(175, yPos, 200, 20);
+            failedFileMerged.setBounds(175, yPos, 70, 20);
             panel.add(failedFileMerged);
+
+            JButton viewFailed = new JButton(" View ");
+            viewFailed.setHorizontalAlignment(SwingConstants.LEFT);
+            viewFailed.setFont(font);
+            viewFailed.setBounds(250, yPos, 60, 20);
+            viewFailed.addActionListener(this::displayFailedFiles);
+            panel.add(viewFailed);
+
             yPos += 30;
         }
 
@@ -267,7 +293,45 @@ public class FileSelectionPanel {
             d.setVisible(false);
         });
         panel.add(submit);
+
         d.add(panel);
+    }
+
+    private void displayFailedFiles(ActionEvent actionEvent) {
+        JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
+        d.setTitle("Dialog Box");
+        d.setSize(Math.min(800, failedFiles.get(0).length() * 8), Math.min(500, failedFiles.size() * 10));
+        d.setLocation(Util.getLocation(100, sharedInformation.getYSize() * 2 / 3));
+
+        JLabel statusLbl;
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html><div style='text-align: center;'>");
+        for (String failedFile : failedFiles)
+            sb.append("<br>").append(failedFile);
+        sb.append("</div></html>");
+        statusLbl = new JLabel(sb.toString());
+        statusLbl.setHorizontalAlignment(SwingConstants.CENTER);
+        d.add(new JScrollPane(statusLbl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS));
+        d.setVisible(true);
+    }
+
+    private void displayMergedFiles(ActionEvent actionEvent) {
+        JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
+        d.setTitle("Dialog Box");
+        d.setSize(Math.min(800, mergedFiles.get(0).length() * 8), Math.min(500, mergedFiles.size() * 10));
+        d.setLocation(Util.getLocation(100, sharedInformation.getYSize() * 2 / 3));
+
+        JLabel statusLbl;
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html><div style='text-align: center;'>");
+        for (String mergedFile : mergedFiles)
+            sb.append("<br>").append(mergedFile);
+        sb.append("</div></html>");
+        statusLbl = new JLabel(sb.toString());
+
+        statusLbl.setHorizontalAlignment(SwingConstants.CENTER);
+        d.add(new JScrollPane(statusLbl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS));
+        d.setVisible(true);
     }
 
     private void createConfirmationDialog(Dialog d) {
@@ -284,14 +348,12 @@ public class FileSelectionPanel {
         statusLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
         panel.add(statusLbl, BorderLayout.CENTER);
 
-        SubmitPanel submitPanel = new SubmitPanel();
+        SubmitPanel submitPanel = new SubmitPanel(false);
         submitPanel.submit.addActionListener(e -> {
             this.continueMerge = true;
             d.setVisible(false);
         });
-        submitPanel.cancel.addActionListener(e -> {
-            d.setVisible(false);
-        });
+        submitPanel.cancel.addActionListener(e -> d.setVisible(false));
         panel.add(submitPanel, BorderLayout.SOUTH);
         d.add(panel);
     }
@@ -306,7 +368,6 @@ public class FileSelectionPanel {
         }
         selectionTable.table.setModel(model);
     }
-
 
     public void setVisible(boolean visible) {
         dialogBox.setVisible(visible);
