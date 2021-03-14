@@ -107,6 +107,8 @@ public class FileSelectionPanel {
     private void mergeFiles(ActionEvent actionEvent) {
         int lineCount = 0, count = 0;
         String mergedFile = null;
+        String mergedLogFileName = null;
+        String failedLogFileName = null;
         List<String> headers = new ArrayList<>();
         submitPanel.submit.setEnabled(false);
         continueMerge = true;
@@ -141,9 +143,17 @@ public class FileSelectionPanel {
             d.setVisible(true);
         } else {
             while (mergedFile == null) {
-                String outputFileName = sharedInformation.getOutputFolder() + "/merged-" + count++ + "." + type;
-                File file = new File(outputFileName);
-                if (!file.exists()) mergedFile = outputFileName;
+                String outputFileName = sharedInformation.getOutputFolder() + "/merge-" + count + "." + type;
+                String csvOutputFileName = sharedInformation.getOutputFolder() + "/merge-" + count + "." + type;
+                String excelOutputFileName = sharedInformation.getOutputFolder() + "/merge-" + count + "." + type;
+                File csvfile = new File(csvOutputFileName);
+                File excelfile = new File(excelOutputFileName);
+                if (!(csvfile.exists() || excelfile.exists())) {
+                    mergedFile = outputFileName;
+                    mergedLogFileName = sharedInformation.getOutputFolder() + "/merge-" + count + "-success.txt";
+                    failedLogFileName = sharedInformation.getOutputFolder() + "/merge-" + count + "-failure.txt";
+                }
+                count++;
             }
             headers = selectedFiles.get(0).getHeaders();
             if (differentFormatFiles(headers, selectedFiles)) {
@@ -155,10 +165,8 @@ public class FileSelectionPanel {
             if (continueMerge) {
                 mergedFiles = new ArrayList<>();
                 failedFiles = new ArrayList<>();
-                File mergedFileName = new File(sharedInformation.getOutputFolder() + "/merged-" + count + "success.txt");
-                File failedFileName = new File(sharedInformation.getOutputFolder() + "/merged-" + count + "failed.txt");
-                try (BufferedWriter mergedBr = new BufferedWriter(new FileWriter(mergedFileName));
-                     BufferedWriter failedBr = new BufferedWriter(new FileWriter(failedFileName))) {
+                try (BufferedWriter mergedBr = new BufferedWriter(new FileWriter(new File(mergedLogFileName)));
+                     BufferedWriter failedBr = new BufferedWriter(new FileWriter(new File(failedLogFileName)))) {
                     Util.writeHeaders(headers, mergedFile, type);
                     for (FileDetails sourceFile : selectedFiles)
                         if (headers.equals(sourceFile.getHeaders())) {
@@ -299,7 +307,7 @@ public class FileSelectionPanel {
 
     private void displayFailedFiles(ActionEvent actionEvent) {
         JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
-        d.setTitle("Dialog Box");
+        d.setTitle("Failed Files");
         d.setSize(Math.min(800, failedFiles.get(0).length() * 8), Math.min(500, failedFiles.size() * 10));
         d.setLocation(Util.getLocation(100, sharedInformation.getYSize() * 2 / 3));
 
@@ -317,7 +325,7 @@ public class FileSelectionPanel {
 
     private void displayMergedFiles(ActionEvent actionEvent) {
         JDialog d = new JDialog(sharedInformation.getMainFrame(), Dialog.ModalityType.APPLICATION_MODAL);
-        d.setTitle("Dialog Box");
+        d.setTitle("Merged Files");
         d.setSize(Math.min(800, mergedFiles.get(0).length() * 8), Math.min(500, mergedFiles.size() * 10));
         d.setLocation(Util.getLocation(100, sharedInformation.getYSize() * 2 / 3));
 
